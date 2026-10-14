@@ -9,6 +9,7 @@ document.querySelectorAll('[data-live-reviews-url]').forEach((container) => {
   let active = false;
   let lastSuccess = null;
   let signature = '';
+  let nextAttemptAt = 0;
 
   const readJson = async (response) => {
     const limit = 1_000_000;
@@ -45,12 +46,12 @@ document.querySelectorAll('[data-live-reviews-url]').forEach((container) => {
       let profile;
       try { profile = new URL(author?.getAttribute('href')); } catch (_) { return []; }
       // Require the source widget's Google author attribution and a real rating.
-      if (profile.origin !== 'https://www.google.com' || !/^\/maps\/contrib\/\d+\/?$/.test(profile.pathname)
+      if (profile.origin !== 'https://www.google.com' || profile.username || profile.password || !/^\/maps\/contrib\/\d+\/?$/.test(profile.pathname)
         || !name || name.length > 120 || !text || text.length > 12000 || stars < 1 || stars > 5) return [];
       const key = profile.pathname + text;
       if (seen.has(key)) return [];
       seen.add(key);
-      return [{ name, text, date: date.slice(0, 60), stars, profile: profile.href }];
+      return [{ name, text, date: date.slice(0, 60), stars, profile: profile.origin + profile.pathname }];
     }).slice(0, 24);
   };
 
@@ -120,14 +121,17 @@ document.querySelectorAll('[data-live-reviews-url]').forEach((container) => {
   };
 
   const refresh = async () => {
-    if (inFlight || document.hidden || !active) return;
+    if (inFlight || document.hidden || !active || Date.now() < nextAttemptAt) return;
+    // Bound retries from scroll, online and visibility events as well as the timer.
+    // This is client throttling; the feed host must enforce its own rate limits.
+    nextAttemptAt = Date.now() + 60000;
     inFlight = true;
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 10000);
     try {
       const endpoint = new URL(container.dataset.liveReviewsUrl);
       if (endpoint.href !== 'https://siddha365.com/wp-json/wp/v2/pages/7?_fields=content') throw new Error('Untrusted review endpoint');
-      const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, credentials: 'omit', mode: 'cors', redirect: 'error', cache: 'no-store', signal: controller.signal });
+      const response = await fetch(endpoint, { headers: { Accept: 'application/json' }, credentials: 'omit', mode: 'cors', redirect: 'error', referrerPolicy: 'no-referrer', cache: 'no-store', signal: controller.signal });
       const data = await readJson(response);
       const reviews = parseReviews(data?.content?.rendered);
       if (!reviews.length) throw new Error('No attributed reviews available');

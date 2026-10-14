@@ -22,10 +22,12 @@ SITE = Path(__file__).resolve().parent
 PHONE = "+91 78455 39622"
 PHONE_TEL = "+917845539622"
 WHATSAPP = "https://api.whatsapp.com/send/?phone=917845539622&text=Hello%20Siddha%20365%2C%20I%20would%20like%20to%20book%20an%20appointment.&type=phone_number&app_absent=0"
+INSTAGRAM = "https://www.instagram.com/dr.siddha365/"
+FACEBOOK = "https://www.facebook.com/profile.php?id=100088560039047"
 GOOGLE_SEARCH = "https://www.google.com/maps/search/?api=1&query=Siddha+365+Health+Care+Clinic+Villivakkam+Chennai"
 GOOGLE_EMBED = "https://maps.google.com/maps?q=Siddha%20365%20Health%20Care%20Clinic%20Villivakkam%20Chennai&output=embed"
 REVIEWS_API = "https://siddha365.com/wp-json/wp/v2/pages/7?_fields=content"
-ASSET_VERSION = "20261008-about-logo-once-v13"
+ASSET_VERSION = "20261014-social-rail-v2"
 
 LOGO = "assets/optimized/siddha365-header-lockup.webp"
 FAVICON = "wp-content/uploads/2023/05/cropped-SASEE-siddha-logo-final-2-1-192x192.png"
@@ -179,13 +181,13 @@ NAV = [
 ]
 
 HOME_SLIDES = [
-    ("wp-content/uploads/hero/female-siddha-consultation.png", "Female Siddha doctor consulting with a woman patient in a botanical clinic"),
-    ("wp-content/uploads/hero/female-siddha-fire-cupping.png", "Female Siddha doctor providing professional fire cupping therapy to a woman patient"),
-    ("wp-content/uploads/hero/slide-04-handcrafted-preparation.jpg", "Artisan preparation of natural herbs, fresh neem leaves, and traditional remedies"),
-    ("wp-content/uploads/hero/slide-05-sanctuary-garden.jpg", "Peaceful Siddha clinic sanctuary surrounded by lush medicinal botanical gardens"),
-    ("wp-content/uploads/hero/slide-06-traditional-alchemy.jpg", "Ancient Siddha healing wisdom, herbal formulations, and palm-leaf manuscripts"),
-    ("wp-content/uploads/hero/slide-07-botanical-remedies.jpg", "Pure botanical extracts, medicinal choornam powders, and therapeutic oils"),
-    ("wp-content/uploads/hero/slide-08-oil-therapy.jpg", "Medicated herbal oil formulations and traditional wellness therapy"),
+    ("assets/home-slider/slider-1.webp", "Siddha365 homepage slider image 1"),
+    ("assets/home-slider/slider-2.webp", "Siddha365 homepage slider image 2"),
+    ("assets/home-slider/slider-3.webp", "Siddha365 homepage slider image 3"),
+    ("assets/home-slider/slider-4.webp", "Siddha365 homepage slider image 4"),
+    ("assets/home-slider/slider-5.webp", "Siddha365 homepage slider image 5"),
+    ("assets/home-slider/slider-6.webp", "Siddha365 homepage slider image 6"),
+    ("assets/home-slider/slider-7.webp", "Siddha365 homepage slider image 7"),
 ]
 
 SPECIALTY_CARE = [
@@ -298,7 +300,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
 <body class="page-{section or ('home' if homepage else route.split('/')[0])}">
   <div class="page-loader" aria-hidden="true"><div class="loader-mark"><img src="{logo}" alt="" width="150" height="92"><span class="loader-scan"></span></div><span class="loader-label">Siddha365 · Care, with you in mind</span><span class="loader-line"></span></div>
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <div class="utility-bar"><div class="container utility-inner"><p>Traditional Siddha care · Chennai</p><div class="utility-actions"><p><a href="{tel}">Call {PHONE}</a><span class="utility-hours"><span aria-hidden="true"> &nbsp;·&nbsp; </span>Mon–Sat, 10:30 am–1:30 pm &amp; 7–9:30 pm</span></p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false">Pause motion</button></div></div></div>
+  <div class="utility-bar"><div class="container utility-inner"><p><span class="utility-tamil">உணவே மருந்து — மருந்தே உணவு;<br>நலமே நம் வாழ்வின் வழி!</span></p><div class="utility-actions"><p><a href="{tel}">Call {PHONE}</a><span class="utility-hours"><span aria-hidden="true"> &nbsp;·&nbsp; </span>Mon–Sat, 10:30 am–1:30 pm &amp; 7–9:30 pm</span></p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false">Pause motion</button></div></div></div>
   <header class="site-header">
     <div class="nav-capsule">
       <a class="brand" href="{rel(route_dir, '')}" aria-label="Siddha365 home"><img src="{logo}" alt="Siddha 365 Health Care Clinic" width="138" height="84"></a>
@@ -427,8 +429,9 @@ def homepage():
     ])
     video_cards = "".join(f'''<article class="video-card"><button class="video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in VIDEOS)
     home_video_cards = "".join(f'''<article class="home-video-card"><button class="home-video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/mqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in POPULAR_VIDEOS)
+    social_rail = f'''<aside class="social-rail" aria-label="Siddha365 social links"><span class="social-rail-label">Follow Siddha365</span><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" aria-label="Message Siddha365 on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Zm-8.4 18.1h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.4 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6s-.7-1.7-.9-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.3 3.3c.2.2 2.2 3.4 5.3 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5Z"/></svg><span>WhatsApp</span></a><a href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.7V8.3l6.3 3.7-6.3 3.7Z"/></svg><span>YouTube</span></a><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5ZM17.5 6A1.2 1.2 0 1 1 16.3 7.2 1.2 1.2 0 0 1 17.5 6Z"/></svg><span>Instagram</span></a><a href="{FACEBOOK}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.9-1.8H17V2.3c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v3H7.5V13h2.8v9h3.2Z"/></svg><span>Facebook</span></a></aside>'''
     review_cards = review_rows_html(route)
-    body = f'''<main id="main-content">
+    body = f'''<main id="main-content">{social_rail}
   <section class="home-gallery-section"><div class="hero-glow" data-hero-glow aria-hidden="true"></div><div class="hero-orbit" aria-hidden="true"></div><div class="container"><div class="home-hero-stage"><div class="home-gallery" data-carousel><div class="carousel-controls home-gallery-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Previous clinic image">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Next clinic image">→</button></div><div class="home-gallery-track" data-carousel-track data-autoplay="true" data-autoplay-interval="3000" data-scroll-step="full" aria-label="Clinic treatments and care images">{slides}</div></div><div class="home-stage-shade" aria-hidden="true"></div><div class="home-hero-copy home-stage-copy"><p class="eyebrow">Traditional Siddha care · Chennai</p><h1>Thoughtful care, <span class="accent">rooted in tradition</span></h1><p>Meet Dr. Sindhu and explore personal care at Siddha365 Health Care Clinic.</p><div class="hero-actions home-hero-actions"><a class="button" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">Book an appointment ↗</a><a class="button button-secondary" href="#specialized-care">Explore your care</a></div><div class="home-hero-details"><span>Dr. Sindhu V. · BSMS, MD (Siddha)</span><a href="contact-us/">Two locations in Chennai <span aria-hidden="true">↗</span></a></div></div><aside class="home-video-rail home-stage-videos" aria-label="Videos from the Siddha365 YouTube channel"><div class="home-video-rail-head"><div><p class="eyebrow">Watch &amp; learn</p><h2>From our <span class="accent">channel</span></h2></div><a class="text-link" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer">YouTube</a></div><div class="home-video-rail-window" data-video-rail><div class="home-video-rail-track" data-video-rail-track>{home_video_cards}</div></div></aside></div></div></section>
 
   <section class="section home-intro"><div class="container home-intro-grid"><div class="home-intro-copy reveal"><p class="eyebrow">Siddha 365 Health Care</p><h2>Traditional care rooted in <span class="accent">Tamil Siddha</span></h2><p class="home-tamil" lang="ta">பாரம்பரிய சித்த மருத்துவத்தின் மூலம் முழுமையான இயற்கை சிகிச்சை.</p><p>Siddha365 Health Care Clinic is guided by Dr. Sindhu V., B.S.M.S., M.D. (Siddha). Rooted in Tamil Siddha tradition, the clinic offers individual consultations with careful assessment, a respectful conversation about each person’s needs, and clear next steps.</p><div class="hero-actions"><a class="button" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">Book an appointment ↗</a><a class="button button-secondary" href="about/">About the clinic</a></div></div><div class="home-intro-image reveal">{image_for(route, "wp-content/uploads/hero/tamil-siddha-herbal-prep.jpg", "Herbs and natural botanical remedies prepared using traditional Tamil Siddha methods")}</div></div></section>
@@ -525,7 +528,7 @@ def pages():
     ]
     place_cards = "".join(f'''<article class="contact-card"><p class="eyebrow">Clinic {i}</p><h3>{esc(name)}</h3><p>{esc(address)}</p><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query={esc(address.replace(' ', '+'))}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></article>''' for i, (name, address) in enumerate(places, start=1))
     contact_content = f'''<section class="section"><div class="container"><div class="contact-grid">{place_cards}<article class="contact-card"><p class="eyebrow">Call or message</p><h3>Plan an appointment</h3><p>Contact the clinic with questions about availability or directions.</p><div class="hero-actions"><a class="button" href="tel:{PHONE_TEL}">Call {PHONE}</a><a class="button button-secondary" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></article><article class="contact-card" id="hours"><p class="eyebrow">Opening hours</p><h3>Clinic timings</h3><dl class="hours"><div><dt>Monday – Saturday</dt><dd>10:30 am – 1:30 pm</dd></div><div><dt>Evenings</dt><dd>7:00 pm – 9:30 pm</dd></div><div><dt>Sunday</dt><dd>By appointment</dd></div></dl></article></div><p class="medical-note">If you have a medical emergency, contact your local emergency service or go to the nearest emergency department.</p></div></section>'''
-    output["contact-us/index.html"] = generic_page("contact-us", "Contact & clinic locations", "Visit Siddha365", "Find the Siddha365 Health Care Clinic locations in Villivakkam and Mogappair East, Chennai.", contact_content, DOCTOR, "contact-us")
+    output["contact-us/index.html"] = generic_page("contact-us", "Contact & Clinic Locations", "Visit Siddha365", "Find the Siddha365 Health Care Clinic locations in Villivakkam and Mogappair East, Chennai.", contact_content, DOCTOR, "contact-us")
 
     return output
 
@@ -584,6 +587,8 @@ def optimize_embedded_images(generated):
             local = SITE / posixpath.normpath(posixpath.join(page_dir, image_path))
             if not local.is_file():
                 return tag
+            if local.suffix.lower() == ".svg":
+                return tag
             with Image.open(local) as picture:
                 width, height = picture.size
             return tag[:-1] + f' width="{width}" height="{height}">'
@@ -595,6 +600,37 @@ def optimize_embedded_images(generated):
 def build_distribution(generated):
     """Assemble a clean static deploy folder without the downloaded WordPress snapshot."""
     distribution = SITE / "dist"
+    # Reject redirected output trees before writing or pruning anything.
+    if distribution.resolve() != SITE / "dist" or distribution.is_symlink() or distribution.is_junction():
+        raise ValueError("The deployment folder must be a real directory inside the project")
+    for entry in distribution.rglob("*"):
+        if entry.is_symlink() or entry.is_junction() or not entry.resolve().is_relative_to(distribution):
+            raise ValueError("Linked paths are not allowed in the deployment folder")
+    allowed_extensions = {".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".woff", ".woff2"}
+    assets = {}
+    # Validate the entire input manifest before changing the deployment output.
+    for page_path, content in generated.items():
+        page = Path(page_path)
+        if page.is_absolute() or ".." in page.parts or page.suffix != ".html":
+            raise ValueError("Invalid generated page path")
+        for match in re.finditer(r'\b(?:src|href)=["\']([^"\']+)["\']', content, re.IGNORECASE):
+            parsed = urlsplit(match.group(1))
+            if parsed.scheme or parsed.netloc or not parsed.path:
+                continue
+            raw = unquote(parsed.path)
+            if "\\" in raw or "\x00" in raw:
+                raise ValueError("Invalid local asset path")
+            local = posixpath.normpath(raw.lstrip("/") if raw.startswith("/") else posixpath.join(posixpath.dirname(page_path), raw))
+            source = (SITE / local).resolve()
+            if not source.is_relative_to(SITE) or local.startswith("../"):
+                raise ValueError("Local reference escapes the project")
+            if local in generated or local.rstrip("/") + "/index.html" in generated or local == ".":
+                continue
+            if Path(local).suffix.lower() not in allowed_extensions or any(part.startswith(".") for part in Path(local).parts):
+                raise ValueError("Non-public file referenced by a generated page")
+            if not source.is_file():
+                raise FileNotFoundError("Missing public asset: " + local)
+            assets[local] = source
     distribution.mkdir(exist_ok=True)
     published_paths = set(generated)
 
@@ -603,39 +639,26 @@ def build_distribution(generated):
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text(content, encoding="utf-8")
 
-    # Copy only local files referenced by the generated HTML. This keeps source
-    # snapshots, plugins, feeds, and XML-RPC discovery files out of the deploy.
-    for page_path, content in generated.items():
-        page_dir = posixpath.dirname(page_path)
-        for match in re.finditer(r'\b(?:src|href)=["\']([^"\']+)["\']', content, re.IGNORECASE):
-            candidate = match.group(1)
-            parsed = urlsplit(candidate)
-            if parsed.scheme or parsed.netloc or not parsed.path:
-                continue
-            raw_path = unquote(parsed.path).lstrip("/")
-            local_path = posixpath.normpath(posixpath.join(page_dir, raw_path))
-            if local_path.startswith("../") or local_path in published_paths:
-                continue
-            if local_path.endswith("/") and f"{local_path}index.html" in published_paths:
-                continue
-            source = SITE / Path(local_path)
-            if not source.is_file():
-                continue
-            destination = distribution / Path(local_path)
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            if local_path not in published_paths:
-                shutil.copy2(source, destination)
-                published_paths.add(local_path)
+    for local_path, source in assets.items():
+        destination = distribution / local_path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, destination)
+        published_paths.add(local_path)
 
     security_headers = """/*
   Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://i.ytimg.com; font-src 'self'; connect-src 'self' https://siddha365.com; frame-src https://www.youtube-nocookie.com https://maps.google.com https://www.google.com; upgrade-insecure-requests
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
+  Strict-Transport-Security: max-age=31536000
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=(self \"https://www.youtube-nocookie.com\")
 """
     (distribution / "_headers").write_text(security_headers, encoding="utf-8")
-    apache_headers = '''<IfModule mod_headers.c>
+    apache_headers = '''Options -Indexes
+<FilesMatch "(?i)^(?:\\..*|_headers|.*\\.(?:py|pyc|php|env|ini|log|sql|bak|key|pem|p12|pfx))$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
   Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self'; style-src 'self'; img-src 'self' https://i.ytimg.com; font-src 'self'; connect-src 'self' https://siddha365.com; frame-src https://www.youtube-nocookie.com https://maps.google.com https://www.google.com; upgrade-insecure-requests"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Content-Type-Options "nosniff"
@@ -660,6 +683,16 @@ def build_distribution(generated):
     sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sitemap += "\n".join(urls) + "\n</urlset>\n"
     (distribution / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    published_paths.update({"_headers", ".htaccess", "robots.txt", "sitemap.xml"})
+    # Only remove stale deployment copies, after all new files have been written.
+    # Source originals and reference materials remain outside this folder.
+    for entry in sorted(distribution.rglob("*"), key=lambda item: len(item.parts), reverse=True):
+        if not entry.resolve().is_relative_to(distribution):
+            raise ValueError("Refusing to prune outside the deployment folder")
+        if entry.is_file() and entry.relative_to(distribution).as_posix() not in published_paths:
+            entry.unlink()
+        elif entry.is_dir() and not any(entry.iterdir()):
+            entry.rmdir()
     return len(published_paths)
 
 
