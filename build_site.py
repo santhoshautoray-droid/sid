@@ -21,13 +21,13 @@ except (ImportError, ModuleNotFoundError):
 SITE = Path(__file__).resolve().parent
 PHONE = "+91 78455 39622"
 PHONE_TEL = "+917845539622"
-WHATSAPP = "https://api.whatsapp.com/send/?phone=917845539622&text=Hello%20Siddha%20365%2C%20I%20would%20like%20to%20book%20an%20appointment.&type=phone_number&app_absent=0"
+WHATSAPP = "https://wa.me/917845539622?text=Hello%20Siddha%20365%2C%20I%20would%20like%20to%20book%20an%20appointment."
 INSTAGRAM = "https://www.instagram.com/dr.siddha365/"
 FACEBOOK = "https://www.facebook.com/profile.php?id=100088560039047"
 GOOGLE_SEARCH = "https://www.google.com/maps/search/?api=1&query=Siddha+365+Health+Care+Clinic+Villivakkam+Chennai"
 GOOGLE_EMBED = "https://maps.google.com/maps?q=Siddha%20365%20Health%20Care%20Clinic%20Villivakkam%20Chennai&output=embed"
 REVIEWS_API = "https://siddha365.com/wp-json/wp/v2/pages/7?_fields=content"
-ASSET_VERSION = "20261014-social-rail-v2"
+ASSET_VERSION = "20261015-milestones-v1"
 
 LOGO = "assets/optimized/siddha365-header-lockup.webp"
 FAVICON = "wp-content/uploads/2023/05/cropped-SASEE-siddha-logo-final-2-1-192x192.png"
@@ -181,6 +181,8 @@ NAV = [
 ]
 
 HOME_SLIDES = [
+    ("wp-content/uploads/hero/female-siddha-consultation.png", "Female Siddha consultation at Siddha365"),
+    ("wp-content/uploads/hero/female-siddha-fire-cupping.png", "Female Siddha fire cupping therapy at Siddha365"),
     ("assets/home-slider/slider-1.webp", "Siddha365 homepage slider image 1"),
     ("assets/home-slider/slider-2.webp", "Siddha365 homepage slider image 2"),
     ("assets/home-slider/slider-3.webp", "Siddha365 homepage slider image 3"),
@@ -423,9 +425,9 @@ def homepage():
 
     stats = "".join([
         '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 37V10M8 37h33M13 29l9-9 7 7 12-14M33 13h8v8"/></svg></span><strong data-count-to="5">5</strong><span class="stat-label">Year of experience</span></article>',
-        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><g transform="rotate(-42 18 24)"><rect x="10" y="8" width="15" height="32" rx="7.5"/><path d="M10 24h15"/></g><g transform="rotate(42 32 24)"><rect x="25" y="12" width="13" height="27" rx="6.5"/><path d="M25 25.5h13"/></g></svg></span><strong data-count-to="500">500</strong><span class="stat-label">Health concerns supported</span></article>',
-        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M24 12v24M18 18h9a5 5 0 0 1 0 10h-7a5 5 0 0 0 0 10h10M7 10h10M31 38h10"/></svg></span><strong data-count-to="700">700</strong><span class="stat-label">Treatments</span></article>',
-        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M17 20h.1M31 20h.1M16 28c2.2 4.2 4.8 6 8 6s5.8-1.8 8-6"/></svg></span><strong data-count-to="5000">5,000</strong><span class="stat-label">Clients served</span></article>',
+        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><g transform="rotate(-42 18 24)"><rect x="10" y="8" width="15" height="32" rx="7.5"/><path d="M10 24h15"/></g><g transform="rotate(42 32 24)"><rect x="25" y="12" width="13" height="27" rx="6.5"/><path d="M25 25.5h13"/></g></svg></span><strong data-count-to="516">516</strong><span class="stat-label">Health concerns supported</span></article>',
+        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M24 12v24M18 18h9a5 5 0 0 1 0 10h-7a5 5 0 0 0 0 10h10M7 10h10M31 38h10"/></svg></span><strong data-count-to="723">723</strong><span class="stat-label">Treatments</span></article>',
+        '<article class="home-stat"><span class="stat-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M17 20h.1M31 20h.1M16 28c2.2 4.2 4.8 6 8 6s5.8-1.8 8-6"/></svg></span><strong data-count-to="5102">5,102</strong><span class="stat-label">Clients served</span></article>',
     ])
     video_cards = "".join(f'''<article class="video-card"><button class="video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in VIDEOS)
     home_video_cards = "".join(f'''<article class="home-video-card"><button class="home-video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/mqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in POPULAR_VIDEOS)
@@ -708,3 +710,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
