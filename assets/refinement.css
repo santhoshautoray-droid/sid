@@ -326,7 +326,7 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .social-rail a span {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
 @media(max-width:900px) {.social-rail {left:10px;}}
 @media(max-width:600px) {
-  .social-rail { display:flex !important; left:6px; top:36%; transform:translateY(-50%); width:32px; padding:5px 4px; gap:5px; z-index:1100; }
+  .social-rail { display:flex !important; left:6px; top:calc(36% - 22px); transform:translateY(-50%); width:32px; padding:5px 4px; gap:5px; z-index:1100; }
   .social-rail a { width:22px; height:22px; }
   .social-rail svg { width:12px; height:12px; }
 }
