@@ -221,7 +221,7 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   display: inline-block;
   padding-left: 0;
   color: #dce7d8;
-  font-size: .68em;
+  font-size: .95rem;
   font-weight: 700;
   line-height: 1.25;
   text-align: center;
@@ -239,6 +239,84 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   }
 }
 @keyframes tamil-slogan-wave { from { background-position: 180% 0; } to { background-position: -40% 0; } }
+.home-founder-section .split-copy h2 .accent {
+  color: #b9ff45;
+  background: linear-gradient(110deg, #86d62c 0%, #b9ff45 38%, #f3ffd9 48%, #b9ff45 58%, #86d62c 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 5px rgba(185, 255, 69, .22));
+  animation: tamil-slogan-wave 3.2s linear infinite;
+}
+.home-founder-section .founder-registration {
+  display: inline-block;
+  margin-left: 20px;
+  color: #f87171;
+  background: linear-gradient(110deg, #b91c1c 0%, #ef4444 42%, #fda4af 55%, #dc2626 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: .31em;
+  font-weight: 600;
+  letter-spacing: .02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.home-founder-section .split-image {
+  isolation: isolate;
+  border: 5px solid transparent;
+  border-radius: 62% 0 62% 0 / 56% 0 56% 0;
+  clip-path: none;
+  aspect-ratio: 1086 / 980;
+  min-height: 0;
+  background: linear-gradient(#fff, #fff) padding-box,
+    conic-gradient(from var(--founder-border-angle), #168b3a 0 82%, #38d900 89%, #8bff16 96%, #38d900 100%) border-box;
+  animation: founder-border-travel 4.8s linear infinite;
+}
+.home-founder-section .founder-panel { grid-template-columns: .9fr 1.1fr; position: relative; }
+.home-founder-section .founder-panel::before {
+  content: '';
+  min-height: 440px;
+  background: url('doctor-founder-option5-leaf.png') center / contain no-repeat;
+}
+.home-founder-section .split-image::after {
+  position: absolute;
+  inset: 12px;
+  z-index: 2;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse at 86% 18%, rgba(185, 255, 69, .22) 0 9%, transparent 10%),
+    radial-gradient(ellipse at 91% 42%, rgba(142, 224, 91, .18) 0 11%, transparent 12%),
+    radial-gradient(ellipse at 12% 78%, rgba(142, 224, 91, .16) 0 10%, transparent 11%);
+  content: '';
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  animation: founder-inner-shades 6.5s ease-in-out infinite alternate;
+}
+@property --founder-border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes founder-border-travel {
+  to { --founder-border-angle: 360deg; }
+}
+@keyframes founder-inner-shades {
+  from { opacity: .55; transform: translate3d(-2px, 1px, 0) scale(.99); }
+  to { opacity: .95; transform: translate3d(2px, -1px, 0) scale(1.015); }
+}
+.home-founder-section img.founder-image {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-founder-section .split-copy h2 .accent { animation: none; }
+  .home-founder-section .split-image { animation: none; }
+}
 .utility-inner { justify-content: flex-start !important; text-align: left; }
 .utility-inner > p:first-child { flex: 0 0 auto; max-width: 260px; margin: 0 auto 0 0 !important; padding-left: 10px; text-align: left; }
 .utility-actions { margin-left: auto; }
@@ -313,8 +391,14 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .motion-paused .page-about .page-hero-art {animation:none; transform:none;}
 
 /* Compact Siddha365 social rail for the homepage. It uses only the clinic's own destinations. */
-.social-rail {position:fixed; left:18px; top:50%; transform:translateY(-50%); z-index:900; display:flex; flex-direction:column; align-items:center; gap:8px; width:52px; padding:11px 7px; border:1px solid rgba(185,226,135,.22); border-radius:999px; background:rgba(7,20,14,.76); box-shadow:0 14px 38px rgba(0,0,0,.24); backdrop-filter:blur(14px);}
+.social-rail {position:fixed; left:18px; top:225px; transform:translateY(-50%); z-index:900; display:flex; flex-direction:column; align-items:center; gap:8px; width:52px; padding:11px 7px; border:1px solid rgba(185,226,135,.22); border-radius:999px; background:rgba(7,20,14,.76); box-shadow:0 14px 38px rgba(0,0,0,.24); backdrop-filter:blur(14px);}
 .social-rail-label {display:none;}
+.site-whatsapp-float { position: fixed; left: 18px; top: 225px; z-index: 900; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #fff; background: #25d366; box-shadow: 0 10px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.14); transition: transform .25s ease, filter .25s ease; }
+.site-whatsapp-float:hover, .site-whatsapp-float:focus-visible { filter: brightness(1.12); transform: translateY(-2px); }
+.site-whatsapp-float:focus-visible { outline: 2px solid #dfffb8; outline-offset: 3px; }
+.site-whatsapp-float svg { width: 21px; height: 21px; fill: currentColor; }
+@media (max-width: 900px) { .site-whatsapp-float { left: 10px; } }
+@media (max-width: 600px) { .site-whatsapp-float { left: 6px; top: 155px; width: 32px; height: 32px; } .site-whatsapp-float svg { width: 16px; height: 16px; } }
 .social-rail a {display:grid; place-items:center; width:34px; height:34px; border-radius:50%; color:#fff; background:rgba(255,255,255,.12); transition:filter .2s ease, transform .2s ease;}
 .social-rail a:nth-of-type(1) {background:#25d366;}
 .social-rail a:nth-of-type(2) {background:#ff0000;}
@@ -326,9 +410,86 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .social-rail a span {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
 @media(max-width:900px) {.social-rail {left:10px;}}
 @media(max-width:600px) {
-  .social-rail { display:flex !important; left:6px; top:calc(36% - 22px); transform:translateY(-50%); width:32px; padding:5px 4px; gap:5px; z-index:1100; }
+  .social-rail { display:flex !important; left:6px; top:155px; transform:translateY(-50%); width:32px; padding:5px 4px; gap:5px; z-index:1100; }
   .social-rail a { width:22px; height:22px; }
   .social-rail svg { width:12px; height:12px; }
+}
+
+/* The WhatsApp control fans the social destinations from its center
+   to evenly spaced positions on a right-facing arc. */
+.social-rail.social-fan-ready {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.social-rail-toggle {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  color: #fff;
+  background: #25d366;
+  box-shadow: 0 10px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.14);
+  cursor: pointer;
+  transition: transform .46s cubic-bezier(.22,.8,.2,1), background-color .3s ease, box-shadow .3s ease;
+}
+.social-rail-toggle:hover,
+.social-rail-toggle:focus-visible { background: #20bd59; box-shadow: 0 12px 28px rgba(0,0,0,.35), 0 0 0 3px rgba(169,220,115,.18); }
+.social-rail-toggle:focus-visible { outline: 2px solid #dfffb8; outline-offset: 3px; }
+.social-rail-toggle svg { width: 21px; height: 21px; fill: currentColor; transition: transform .46s cubic-bezier(.22,.8,.2,1); }
+.social-rail.is-open .social-rail-toggle { background: #20bd59; }
+.social-rail-links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; --social-distance: 78px; }
+.social-rail.social-fan-ready .social-rail-links a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(0px) rotate(calc(var(--social-angle) * -1)) scale(.35);
+  transition: transform .62s cubic-bezier(.22,.8,.2,1), opacity .38s ease, filter .2s ease;
+  transition-delay: calc(var(--social-index) * 35ms);
+}
+.social-rail.social-fan-ready .social-rail-links a:nth-of-type(1) { --social-angle: -72deg; background: #25d366; }
+.social-rail.social-fan-ready .social-rail-links a:nth-of-type(1) { animation: whatsapp-soft-shake 2.8s ease-in-out infinite; }
+.social-rail.is-open .social-rail-links a:nth-of-type(1) { animation: none; }
+@keyframes whatsapp-soft-shake { 0%, 78%, 100% { transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)); } 82% { transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)) translateX(-1px); } 86% { transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)) translateX(1px); } 90% { transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)); } }
+.social-rail.social-fan-ready .social-rail-links a:nth-of-type(2) { --social-angle: -24deg; background: #ff0000; }
+.social-rail.social-fan-ready .social-rail-links a:nth-of-type(3) { --social-angle: 24deg; background: linear-gradient(135deg,#833ab4 0%,#fd1d1d 52%,#fcb045 100%); }
+.social-rail.social-fan-ready .social-rail-links a:nth-of-type(4) { --social-angle: 72deg; background: #1877f2; }
+.social-rail.is-open .social-rail-links { pointer-events: auto; }
+.social-rail.is-open .social-rail-links a { opacity: 1; pointer-events: auto; transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)) scale(1); }
+.social-rail:not(.is-open) .social-rail-links a { transition-delay: 0ms; }
+.social-rail.social-fan-ready .social-rail-links a:hover,
+.social-rail.social-fan-ready .social-rail-links a:focus-visible { color: #fff; filter: brightness(1.14); transform: translate(-50%,-50%) rotate(var(--social-angle)) translateX(var(--social-distance)) rotate(calc(var(--social-angle) * -1)) scale(1.08); }
+.social-rail.social-fan-ready .social-rail-links a:focus-visible { outline: 2px solid #e8ffc8; outline-offset: 3px; }
+.social-rail.social-fan-ready .social-rail-links svg { width: 17px; height: 17px; }
+@media(max-width:600px) {
+  .social-rail.social-fan-ready { width: 36px; height: 36px; padding: 0; }
+  .social-rail-toggle { width: 36px; height: 36px; }
+  .social-rail-toggle svg { width: 17px; height: 17px; }
+  .social-rail-links { --social-distance: 62px; }
+  .social-rail.social-fan-ready .social-rail-links a { width: 26px; height: 26px; }
+  .social-rail.social-fan-ready .social-rail-links svg { width: 13px; height: 13px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .social-rail-toggle,
+  .social-rail-toggle svg,
+  .social-rail.social-fan-ready .social-rail-links a { transition: none; }
 }
 
 /* These mobile headers follow the navbar in normal flow. */
@@ -336,3 +497,182 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
  .page-about .page-hero, .page-contact-us .page-hero {padding-top:24px !important;}
  .page-about .page-hero .breadcrumbs, .page-contact-us .page-hero .breadcrumbs {margin-bottom:18px;}
 }
+
+/* Keep the homepage navbar in its own flow above the hero slider. */
+.page-home .site-header {
+  position: relative;
+  top: auto;
+  margin-bottom: 0;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: #0b130e;
+  border-bottom: 1px solid rgba(169, 220, 115, .18);
+}
+.page-home .home-gallery-section {
+  padding-top: clamp(18px, 2.5vw, 32px);
+}
+
+/* Let the homepage image field begin directly below the separated header. */
+.page-home .home-gallery-section { padding-top: 0; }
+
+
+/* Keep the shortened Tamil slogan on one desktop line. */
+@media (min-width: 721px) {
+  .utility-inner > p:first-child { max-width: none; }
+  .utility-tamil { white-space: nowrap; }
+}
+
+/* Homepage polish: give the desktop header a calm visual hierarchy and protect
+   the hero copy from busy slider artwork without changing the mobile layout. */
+@media (min-width: 801px) {
+  .page-home .site-header {
+    padding-top: 10px;
+    padding-bottom: 12px;
+    background: #0b130e;
+  }
+  .page-home .nav-capsule,
+  .page-home .nav-bar,
+  .page-home .nav-shell {
+    max-width: min(1080px, calc(100vw - 48px));
+    padding-left: 20px;
+    padding-right: 12px;
+    gap: clamp(14px, 2vw, 26px);
+    background: #111b14;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: rgba(169, 220, 115, .28);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .42), inset 0 1px 0 rgba(255, 255, 255, .10);
+  }
+  .page-home .home-stage-shade {
+    background:
+      linear-gradient(90deg, rgba(7, 16, 7, .42) 0%, rgba(11, 21, 9, .28) 34%, rgba(10, 16, 12, .06) 59%, transparent 80%),
+      linear-gradient(0deg, rgba(7, 16, 8, .28) 0%, transparent 40%);
+  }
+  .page-home .home-stage-copy {
+    max-width: min(560px, 48%);
+  }
+}
+
+/* A short neon train of light travels around the dark desktop navbar border. */
+@media (min-width: 801px) {
+  .page-home .nav-capsule,
+  .page-home .nav-bar,
+  .page-home .nav-shell {
+    border-color: rgba(0, 0, 0, .88);
+    background: #111b14;
+    isolation: isolate;
+  }
+  .page-home .nav-capsule > *,
+  .page-home .nav-bar > *,
+  .page-home .nav-shell > * {
+    position: relative;
+    z-index: 3;
+  }
+  .page-home .nav-capsule::after,
+  .page-home .nav-bar::after,
+  .page-home .nav-shell::after {
+    position: absolute;
+    z-index: 1;
+    inset: -1px;
+    padding: 2px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--navbar-train-angle), transparent 0 88%, #70ff00 91%, #eaffb0 93%, #ffffff 94%, #ffffff 97%, #8cff18 98%, #b9ff45 100%);
+    filter: drop-shadow(0 0 9px rgba(185, 255, 69, 1));
+    pointer-events: none;
+    content: '';
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: navbar-train-light 3.8s linear infinite;
+  }
+}
+@property --navbar-train-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes navbar-train-light {
+  to { --navbar-train-angle: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-home .nav-capsule::after,
+  .page-home .nav-bar::after,
+  .page-home .nav-shell::after { animation: none; }
+}
+
+/* Keep the desktop logo visually separate from the navbar capsule. The
+   capsule's border, padding, and navigation spacing remain unchanged. */
+@media (min-width: 801px) {
+  /* Keep inner page headings clear of the shared navbar. */
+  .site-header + #main-content > .page-hero,
+  .site-header + #main-content > .section:first-child {
+    margin-top: 8px;
+  }
+
+  .site-header .nav-capsule > .brand {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 18px);
+    z-index: 4;
+    display: flex;
+    width: clamp(93px, calc(7vw + 5px), 117px);
+    transform: translateY(-50%);
+  }
+  .site-header .nav-capsule > .brand img {
+    width: 100%;
+    height: auto;
+  }
+
+  .site-header .nav-capsule > .brand img {
+    max-width: 95px;
+  }
+}
+
+/* Keep clinic logos fully visible and static. */
+.site-header .brand::before { display: none !important; }
+.brand img,
+.site-header .brand img,
+.partner-logo img,
+.review-feed-placeholder > img,
+.footer-brand .brand img,
+.clinic-statistics__header .eyebrow::before {
+  animation: none !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Keep milestone icons legible beside their numbers on wide and narrow layouts. */
+.clinic-statistics .clinic-statistic {
+  display: grid;
+  grid-template-columns: max-content 40px;
+  column-gap: 12px;
+  align-items: start;
+  padding-top: 6px;
+  padding-right: 0;
+}
+.clinic-statistics .clinic-statistic__icon {
+  position: static;
+  grid-column: 2;
+  grid-row: 1;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  justify-self: start;
+}
+.clinic-statistics .clinic-statistic__icon svg { width: 34px; height: 34px; }
+.clinic-statistics .clinic-statistic strong { grid-column: 1; grid-row: 1; }
+.clinic-statistics .clinic-statistic__label,
+.clinic-statistics .clinic-statistic__detail,
+.clinic-statistics .clinic-statistic__line { grid-column: 1 / -1; }
+@media (max-width: 760px) {
+  .clinic-statistics .clinic-statistic {
+    grid-template-columns: max-content 32px;
+    column-gap: 8px;
+  }
+  .clinic-statistics .clinic-statistic__icon { width: 32px; height: 32px; }
+  .clinic-statistics .clinic-statistic__icon svg { width: 27px; height: 27px; }
+}
+

@@ -12,7 +12,7 @@ const partnerWebsites = {
   'IMPCOPS': 'https://impcops.org.in/',
   'SKM Siddha': 'https://www.skmsiddha.com/',
   'Nagarjuna Herbal Concentrates': 'https://www.nagarjunaayurveda.com/',
-  'Tampcol': 'https://www.tampcol.in/',
+  'Tampcol': 'https://imhd.tn.gov.in/tampcol-2/',
   'Dabur': 'https://www.dabur.com/',
   'Dr Siva': 'https://www.ayushbuy.com/',
   'Himalaya': 'https://himalayawellness.in/',
@@ -109,6 +109,57 @@ if (menuButton && navigation) {
   });
 }
 
+// Keep the social destinations compact until the visitor asks to see them.
+const whatsappGlyph = 'M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Zm-8.4 18.1h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.4 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6s-.7-1.7-.9-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.3 3.3c.2.2 2.2 3.4 5.3 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5Z';
+document.querySelectorAll('.social-rail > a:first-of-type svg path').forEach((path) => path.setAttribute('d', whatsappGlyph));
+document.querySelectorAll('.social-rail').forEach((rail, railIndex) => {
+  const links = [...rail.querySelectorAll(':scope > a')];
+  if (!links.length) return;
+
+  const toggle = document.createElement('button');
+  const group = document.createElement('div');
+  const groupId = `social-links-${railIndex + 1}`;
+  toggle.type = 'button';
+  toggle.className = 'social-rail-toggle';
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.setAttribute('aria-controls', groupId);
+  toggle.setAttribute('aria-label', 'Open social links');
+  toggle.innerHTML = links[0].querySelector('svg')?.outerHTML || '';
+
+  group.className = 'social-rail-links';
+  group.id = groupId;
+  links.forEach((link, index) => {
+    link.style.setProperty('--social-index', String(index));
+    group.append(link);
+  });
+  rail.querySelector('.social-rail-label')?.remove();
+  rail.append(toggle, group);
+  rail.classList.add('social-fan-ready');
+
+  const setOpen = (isOpen, focusFirst = false) => {
+    rail.classList.toggle('is-open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Close social links' : 'Open social links');
+    links.forEach((link) => { link.tabIndex = isOpen ? 0 : -1; });
+    if (isOpen && focusFirst) links[0]?.focus();
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    setOpen(!isOpen, !isOpen);
+  });
+  document.addEventListener('pointerdown', (event) => {
+    if (!rail.contains(event.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  setOpen(false);
+});
+
 
 
 const revealItems = document.querySelectorAll('.reveal');
@@ -151,7 +202,7 @@ if (statsSection) {
     <div class="clinic-statistics__veil" aria-hidden="true"></div>
     <div class="container clinic-statistics__inner">
       <header class="clinic-statistics__header">
-        <p class="eyebrow">Siddha365 milestones</p>
+        <p class="eyebrow">Siddha 365 milestones</p>
       </header>
       <div class="clinic-statistics__grid" aria-label="Siddha365 clinic statistics">
         ${milestones.map((milestone, index) => `<article class="clinic-statistic" style="--stat-index:${index}"><span class="clinic-statistic__icon">${milestone.icon}</span><strong data-stat-count="${milestone.value}" aria-label="${displayNumber(milestone.value)} ${milestone.label}">${displayNumber(milestone.value)}</strong><span class="clinic-statistic__label">${milestone.label}</span><span class="clinic-statistic__detail">${milestone.detail}</span><span class="clinic-statistic__line" aria-hidden="true"></span></article>`).join('')}

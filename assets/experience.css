@@ -9,8 +9,23 @@
 .treatment-wall-rows { display: grid; gap: 16px; }
 .treatment-wall-row { display: flex; gap: 14px; width: max-content; transform: translate3d(-180px,0,0); }
 .treatment-wall-pill { display: inline-flex; align-items: center; flex: none; min-height: 38px; padding: 8px 20px; border: 1px solid #b6d1ba45; border-radius: 999px; color: #d5e2d4; font-size: .76rem; white-space: nowrap; }
+.treatment-wall-pill { background: linear-gradient(110deg, #86d62c 0%, #b9ff45 38%, #f3ffd9 48%, #b9ff45 58%, #86d62c 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: tamil-slogan-wave 3.2s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .treatment-wall-pill { animation: none; } }
 .treatment-wall-center { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; background: radial-gradient(ellipse at center,#0d1c15 0%,#0d1c1590 8%,transparent 30%); }
 .treatment-wall-cta { pointer-events: auto; text-align: center; padding: 12px 22px; min-height: 64px; border-radius: 999px; font-size: .88rem; line-height: 1.45; box-shadow: 0 8px 30px #0003; }
+.treatment-wall-cta, .treatment-wall-cta:hover {
+  border: 1px solid transparent;
+  color: #d8ff9d;
+  background: linear-gradient(rgba(12, 28, 19, .62), rgba(12, 28, 19, .62)) padding-box,
+    conic-gradient(from var(--treatment-cta-angle), rgba(169, 220, 115, .3) 0 92%, #86d62c 96%, #eaffb0 98%, #b9ff45 99%, rgba(169, 220, 115, .3) 100%) border-box;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px #0005;
+}
+.treatment-wall-cta { animation: treatment-cta-border 3.8s linear infinite; }
+@property --treatment-cta-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes treatment-cta-border { to { --treatment-cta-angle: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .treatment-wall-cta { animation: none; } }
 @media (max-width: 600px) {
   .treatment-wall { padding-block: 24px; }
   .treatment-wall-rows { gap: 12px; }

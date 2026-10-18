@@ -27,11 +27,12 @@ FACEBOOK = "https://www.facebook.com/profile.php?id=100088560039047"
 GOOGLE_SEARCH = "https://www.google.com/maps/search/?api=1&query=Siddha+365+Health+Care+Clinic+Villivakkam+Chennai"
 GOOGLE_EMBED = "https://maps.google.com/maps?q=Siddha%20365%20Health%20Care%20Clinic%20Villivakkam%20Chennai&output=embed"
 REVIEWS_API = "https://siddha365.com/wp-json/wp/v2/pages/7?_fields=content"
-ASSET_VERSION = "20261015-milestones-v1"
+ASSET_VERSION = "20261018-founder-leaf-pathfix-v17"
 
 LOGO = "assets/optimized/siddha365-header-lockup.webp"
 FAVICON = "wp-content/uploads/2023/05/cropped-SASEE-siddha-logo-final-2-1-192x192.png"
 DOCTOR = "wp-content/uploads/2026/02/Siddha-doctor-at-her-clinic.png"
+FOUNDER_DOCTOR = "assets/doctor-founder-option5-leaf.png"
 HERO_ALT = "Dr. Sindhu V at Siddha365 Health Care Clinic"
 
 CONDITIONS = [
@@ -174,6 +175,12 @@ CONDITIONS = [
     },
 ]
 
+ # Approved female-only gallery preview crops. Keep the existing PCOD image unchanged.
+_generated_gallery = [f"assets/optimized/generated-disease-{i}.png" for i in range(1, 16)]
+for _condition, _image in zip(CONDITIONS, _generated_gallery):
+    _condition["image"] = _image
+next(_condition for _condition in CONDITIONS if _condition["slug"] == "pcod")["image"] = "assets/optimized/generated-pcod-last.png"
+
 NAV = [
     ("Home", ""), ("About", "about"), ("Treatments", "treatments"),
     ("Gallery", "gallery"), ("Reviews", "reviews"),
@@ -232,6 +239,11 @@ PARTNER_LOGOS = [
 ]
 
 
+def partner_logo_html(route, path, name):
+    # CSS fits the original artwork without modifying or recompressing its pixels.
+    return f'<div class="partner-logo"><span class="partner-art" data-partner="{esc(name)}"><img src="{asset(route, path)}" alt="{esc(name)}" loading="lazy" decoding="async"></span></div>'
+
+
 def esc(value):
     return escape(str(value), quote=True)
 
@@ -250,10 +262,13 @@ def asset(current, path):
 def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     css = f"{asset(route_dir, 'assets/site.css')}?v={ASSET_VERSION}"
-    refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={ASSET_VERSION}"
-    experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={ASSET_VERSION}"
+    refinement_version = "20261017-navbar-beam-sparkle-v4"
+    refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
+    experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
+    experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
     experience_js = f"{asset(route_dir, 'assets/experience.js')}?v={ASSET_VERSION}"
-    js = f"{asset(route_dir, 'assets/site.js')}?v={ASSET_VERSION}"
+    js_version = "20261018-milestone-spacing-v1"
+    js = f"{asset(route_dir, 'assets/site.js')}?v={js_version}"
     boot = f"{asset(route_dir, 'assets/boot.js')}?v={ASSET_VERSION}"
     review_script = f'<script defer src="{asset(route_dir, "assets/reviews.js")}?v={ASSET_VERSION}"></script>' if 'data-live-reviews-url' in body else ''
     active_section = section or (route.split("/", 1)[0] if route else "")
@@ -270,6 +285,14 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
     logo = asset(route_dir, LOGO)
     favicon = asset(route_dir, FAVICON)
     tel = f"tel:{PHONE_TEL}"
+    if not homepage:
+        page_social = f'''<aside class="social-rail" aria-label="Siddha365 social links"><span class="social-rail-label">Follow Siddha365</span><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" aria-label="Message Siddha365 on WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.7 15l-1 4 4-1A10 10 0 1 0 12 2Z"/></svg></a><a href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-4-1-5-2-1-4-1H6C4 6 3 6 2 7s-1 5-1 5 0 4 1 5 2 1 4 1h12c2 0 3 0 4-1s1-5 1-5Zm-14 3V9l5 3-5 3Z"/></svg></a><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Z"/></svg></a><a href="{FACEBOOK}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Facebook"><svg viewBox="0 0 24 24"><path d="M14 22v-9h3l1-4h-4V7c0-1 1-2 2-2h2V1h-3c-3 0-5 2-5 5v3H7v4h3v9h4Z"/></svg></a></aside>'''
+        page_social = page_social.replace('M12 2a10 10 0 0 0-8.7 15l-1 4 4-1A10 10 0 1 0 12 2Z', 'M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 1 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Z')
+    page_social = "" if homepage else f'<a class="site-whatsapp-float" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" aria-label="Message Siddha365 on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Zm-8.4 18.1h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.4 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6s-.7-1.7-.9-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.3 3.3c.2.2 2.2 3.4 5.3 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5Z"/></svg></a>'
+    if not homepage:
+        page_social = f'''<aside class="social-rail" aria-label="Siddha365 social links"><span class="social-rail-label">Follow Siddha365</span><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" aria-label="Message Siddha365 on WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.7 15l-1 4 4-1A10 10 0 1 0 12 2Z"/></svg></a><a href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on YouTube"><svg viewBox="0 0 24 24"><path d="M23 12s0-4-1-5-2-1-4-1H6C4 6 3 6 2 7s-1 5-1 5 0 4 1 5 2 1 4 1h12c2 0 3 0 4-1s1-5 1-5Zm-14 3V9l5 3-5 3Z"/></svg></a><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z"/></svg></a><a href="{FACEBOOK}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Facebook"><svg viewBox="0 0 24 24"><path d="M14 22v-9h3l1-4h-4V7c0-1 1-2 2-2h2V1h-3c-3 0-5 2-5 5v3H7v4h3v9h4Z"/></svg></a></aside>'''
+    if not homepage:
+        page_social = page_social.replace('M12 2a10 10 0 0 0-8.7 15l-1 4 4-1A10 10 0 1 0 12 2Z', 'M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 1 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Z')
     dialog = ""
     if homepage:
         dialog = f'''<dialog class="visit-dialog" id="visit-dialog" aria-labelledby="dialog-title">
@@ -302,7 +325,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
 <body class="page-{section or ('home' if homepage else route.split('/')[0])}">
   <div class="page-loader" aria-hidden="true"><div class="loader-mark"><img src="{logo}" alt="" width="150" height="92"><span class="loader-scan"></span></div><span class="loader-label">Siddha365 · Care, with you in mind</span><span class="loader-line"></span></div>
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <div class="utility-bar"><div class="container utility-inner"><p><span class="utility-tamil">உணவே மருந்து — மருந்தே உணவு;<br>நலமே நம் வாழ்வின் வழி!</span></p><div class="utility-actions"><p><a href="{tel}">Call {PHONE}</a><span class="utility-hours"><span aria-hidden="true"> &nbsp;·&nbsp; </span>Mon–Sat, 10:30 am–1:30 pm &amp; 7–9:30 pm</span></p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false">Pause motion</button></div></div></div>
+  <div class="utility-bar"><div class="container utility-inner"><p><span class="utility-tamil">உணவே மருந்து — மருந்தே உணவு;</span></p><div class="utility-actions"><p><a href="{tel}">Call {PHONE}</a><span class="utility-hours"><span aria-hidden="true"> &nbsp;·&nbsp; </span>Mon–Sat, 10:30 am–1:30 pm &amp; 7–9:30 pm</span></p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false">Pause motion</button></div></div></div>
   <header class="site-header">
     <div class="nav-capsule">
       <a class="brand" href="{rel(route_dir, '')}" aria-label="Siddha365 home"><img src="{logo}" alt="Siddha 365 Health Care Clinic" width="138" height="84"></a>
@@ -314,7 +337,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
       </div>
     </div>
   </header>
-  {body}
+  {page_social}{body}
   {footer(route_dir)}
   {dialog}
   <dialog class="media-dialog" id="video-dialog" aria-labelledby="video-dialog-title"><div class="media-dialog-head"><div><p class="eyebrow">Siddha365 · Watch &amp; learn</p><h2 id="video-dialog-title">Clinic video</h2></div><button class="dialog-close" type="button" data-dialog-close aria-label="Close video">×</button></div><div class="video-dialog-player" data-video-player></div></dialog>
@@ -333,7 +356,7 @@ def footer(route):
     gallery = rel(route, "gallery")
     tel = f"tel:{PHONE_TEL}"
     logo = asset(route, LOGO)
-    partner_items = "".join(f'<div class="partner-logo"><img src="{asset(route, path)}" alt="{esc(name)}" loading="lazy" decoding="async"></div>' for path, name in PARTNER_LOGOS)
+    partner_items = "".join(partner_logo_html(route, path, name) for path, name in PARTNER_LOGOS)
     return f'''<footer class="footer">
   <section class="container partner-section" aria-labelledby="partner-title">
     <div class="partner-heading"><h2 id="partner-title">Our herbal partners</h2></div>
@@ -444,11 +467,11 @@ def homepage():
 
   <section class="section video-section"><div class="container carousel-shell" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Watch &amp; learn</p><h2>From the Siddha365 <span class="accent">YouTube channel</span></h2><p>Scroll through clinic videos and health conversations. Select a video to play it here.</p></div><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll videos left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll videos right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic video scrolling">Ⅱ</button></div></div><div class="video-track" data-carousel-track data-autoplay="true">{video_cards}</div><p class="muted"><a class="text-link" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer">Visit the official YouTube channel</a></p></div></section>
 
-  <section class="section home-reviews-section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head reveal"><div><p class="eyebrow">Patient feedback</p><h2>Words from our <span class="accent">Google reviewers</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p></div></section>
+  <section class="section home-reviews-section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head reveal"><div><p class="eyebrow">Patient feedback</p><h2>Words from our <span class="accent">Patients</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p></div></section>
 
   <section class="section home-tradition-section"><div class="container home-tradition-grid"><div class="tradition-copy reveal"><p class="eyebrow">Siddha tradition</p><h2>Concept of Vatham, Pitham &amp; <span class="accent">Kabam</span></h2><p>Siddha tradition describes Vatham, Pitham, and Kabam as three principles used to discuss balance in health. This historical framework is part of Siddha practice; it does not replace medical testing or an individual clinical diagnosis.</p><div class="dosha-list"><article><strong>Vatham</strong><span>Traditionally associated with movement</span></article><article><strong>Pitham</strong><span>Traditionally associated with transformation</span></article><article><strong>Kabam</strong><span>Traditionally associated with structure</span></article></div></div><figure class="tradition-art reveal">{image_for(route, "wp-content/uploads/2026/02/vatham-pitham-kabam-premium.png", "Contemporary Siddha-inspired illustration representing Vatham, Pitham, and Kabam in balance")}</figure></div></section>
 
-  <section class="section home-founder-section"><div class="container split-panel founder-panel"><div class="split-image reveal">{image_for(route, DOCTOR, HERO_ALT, "founder-image")}</div><div class="split-copy reveal"><p class="eyebrow">Founder &amp; Chief Siddha Consultant</p><h2>Dr. Sindhu <span class="accent">V.</span></h2><p>Dr. Sindhu V., B.S.M.S., M.D. (Siddha), H.A.H.M., Dip. Cupp., is the Founder and Chief Siddha Consultant at Siddha365 Health Care Clinic. Her practice is guided by Siddha knowledge, clinical assessment, and patient-centred conversations.</p><ul class="check-list"><li>Women’s health, fertility, and family care</li><li>Skin, hair, joint, and lifestyle concerns</li><li>Traditional therapies discussed as part of an individual plan</li></ul><a class="button button-secondary" href="about/">Meet the clinic and doctor</a></div></div></section>
+  <section class="section home-founder-section"><div class="container split-panel founder-panel"><div class="split-copy reveal"><p class="eyebrow">Founder &amp; Chief Siddha Consultant</p><h2><span class="accent">Dr. Sindhu V</span><small class="founder-registration">(Govt Reg. No. 6130)</small></h2><p>Dr. Sindhu V, B.S.M.S, M.D. (Siddha), H.A.H.M, DIP. CUPP, is the Founder and Chief Siddha Consultant at Siddha 365 Health Care Clinic. Her practice is guided by Siddha knowledge, clinical assessment, and patient-centred conversations.</p><ul class="check-list"><li>Women’s health, fertility, and family care</li><li>Skin, hair, joint, and lifestyle concerns</li><li>Traditional therapies discussed as part of an individual plan</li></ul><a class="button button-secondary" href="about/">Meet the clinic and doctor</a></div></div></section>
 {treatment_wall_section(route)}
 <section class="section home-visit-section"><div class="container visit-planner"><div><p class="eyebrow">Make your visit easier</p><h2>A little preparation.<br><span class="accent">A clearer conversation.</span></h2><p>Keep your questions ready and contact the clinic before you travel.</p><a class="button" href="contact-us/">Plan your visit <span aria-hidden="true">↗</span></a></div><div class="visit-planner-details"><article><span class="visit-step-number">01</span><div><h3>Choose your location</h3><p>Villivakkam or Mogappair East, Chennai.</p><a class="text-link" href="contact-us/">Locations &amp; directions</a></div></article><article><span class="visit-step-number">02</span><div><h3>Confirm your appointment</h3><p>Call the clinic for availability and opening hours.</p><a class="text-link" href="tel:{PHONE_TEL}">{PHONE}</a></div></article><article><span class="visit-step-number">03</span><div><h3>Bring what matters</h3><p>Your previous reports, current medicine list and questions for the clinician.</p></div></article></div></div></section>
 </main>'''
@@ -517,7 +540,7 @@ def pages():
     treatment_images.extend([("wp-content/uploads/2024/07/oilslider-11-scaled.jpg", "Traditional oil therapy"), ("wp-content/uploads/2024/11/HERBAL-STEAM-BATH-scaled.jpg", "Herbal steam bath"), (DOCTOR, HERO_ALT)])
     gallery_items = "".join(f'<figure class="gallery-item reveal">{image_for("gallery", path, label)}<figcaption>{esc(label)}</figcaption></figure>' for path, label in treatment_images)
     gallery_content = f'<section class="section"><div class="container"><div class="gallery-grid">{gallery_items}</div><p class="medical-note">Clinic imagery is shared for general information. Individual treatment availability and suitability are decided after consultation.</p></div></section>'
-    output["gallery/index.html"] = generic_page("gallery", "Clinic gallery", "At the clinic", "A look at Siddha365, traditional practice, and the clinic’s areas of care.", gallery_content, DOCTOR, "gallery")
+    output["gallery/index.html"] = generic_page("gallery", "Clinic gallery", "At the clinic", "A look at Siddha365, traditional practice, and the clinic’s areas of care.", gallery_content, "assets/optimized/siddha365-transparent-logo.png", "gallery")
 
 
     review_cards = review_rows_html("reviews")
@@ -555,6 +578,10 @@ def optimize_embedded_images(generated):
                 return match.group(0)
             source = SITE / Path(source_rel)
             if not source.is_file():
+                return match.group(0)
+
+            # Preserve original partner artwork without another lossy conversion.
+            if source_rel in {path for path, _ in PARTNER_LOGOS}:
                 return match.group(0)
 
             digest = hashlib.sha1(source_rel.encode("utf-8")).hexdigest()[:16]
@@ -610,6 +637,11 @@ def build_distribution(generated):
             raise ValueError("Linked paths are not allowed in the deployment folder")
     allowed_extensions = {".css", ".js", ".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".woff", ".woff2"}
     assets = {}
+    # The Founder leaf is referenced from refinement.css, so it is not
+    # discovered by the HTML src/href scan above. Publish it explicitly.
+    founder_leaf = SITE / "assets/doctor-founder-option5-leaf.png"
+    if founder_leaf.is_file():
+        assets["assets/doctor-founder-option5-leaf.png"] = founder_leaf
     # Validate the entire input manifest before changing the deployment output.
     for page_path, content in generated.items():
         page = Path(page_path)
@@ -710,6 +742,10 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
 
 
 
