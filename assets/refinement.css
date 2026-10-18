@@ -668,6 +668,14 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .clinic-statistics .clinic-statistic__detail,
 .clinic-statistics .clinic-statistic__line { grid-column: 1 / -1; }
 @media (max-width: 760px) {
+  .home-founder-section .founder-panel {
+    grid-template-columns: 1fr;
+  }
+  .home-founder-section .founder-panel::before {
+    min-height: 300px;
+    background-size: contain;
+    background-position: center top;
+  }
   .clinic-statistics .clinic-statistic {
     grid-template-columns: max-content 32px;
     column-gap: 8px;
