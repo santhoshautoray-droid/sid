@@ -410,6 +410,7 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
  .review-heading-grid {gap:16px; flex-wrap:wrap;}
  .review-heading-grid > .reveal {flex-basis:100%;}
  .review-heading-grid > .google-review-badge {margin-left:auto; margin-right:0;}
+ .review-heading-grid > .google-review-logo {flex:0 0 auto; align-self:center; margin-left:auto; margin-right:auto;}
 }
 
 .google-review-logo {display:block; flex:0 0 280px; max-width:100%; background:transparent;}
