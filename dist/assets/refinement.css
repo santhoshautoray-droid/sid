@@ -404,6 +404,13 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 }
 
 .review-heading-grid {display:flex; align-items:center; justify-content:space-between; gap:32px;}
+.page-reviews .review-section-heading { display:grid; grid-template-columns:minmax(0, 1fr) 218px; align-items:center; gap:20px; }
+.page-reviews .review-section-heading > div { min-width:0; }
+.page-reviews .review-verified-badge { display:block; width:190px; height:auto; justify-self:start; background:transparent; }
+@media (max-width:600px) {
+  .page-reviews .review-section-heading { grid-template-columns:minmax(0, 1fr) 124px; gap:12px; }
+  .page-reviews .review-verified-badge { width:112px; }
+}
 .review-heading-grid > .reveal {min-width:0; flex:1;}
 .review-heading-grid > .google-review-badge {flex-shrink:0; margin-right:12px;}
 @media(max-width:600px) {
@@ -1008,11 +1015,44 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   box-shadow: 0 20px 42px rgba(0, 0, 0, .34);
 }
 
-/* Show clinic partner logos without the surrounding card border. */
+/* Keep partner artwork in soft rounded cards while the marquee scrolls automatically. */
 .partner-logo {
-  border: 0;
-  background: transparent;
-  padding: 0;
+  flex: 0 0 132px;
+  width: 132px;
+  height: 94px;
+  border: 1px solid rgba(177, 189, 176, .22);
+  border-radius: 22px;
+  background: #fff;
+  padding: 6px;
+  overflow: hidden;
+}
+.partner-logo .partner-art {
+  --art-max-height: 76px;
+  position: relative;
+  width: min(100%, calc(var(--art-max-height) * var(--art-ratio)));
+  height: auto;
+  aspect-ratio: var(--art-ratio);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.partner-logo .partner-art img { position: absolute !important; max-width: none; max-height: none; object-fit: fill !important; }
+.partner-art[data-partner="IMPCOPS"] img { width: 187.1345% !important; height: 114.9194% !important; left: -43.2749% !important; top: -6.4516% !important; }
+.partner-art[data-partner="SKM Siddha"] img { width: 111.8881% !important; height: 508.9286% !important; left: -3.8462% !important; top: -208.9286% !important; }
+.partner-art[data-partner="Nagarjuna Herbal Concentrates"] { --art-ratio: 1.62987; }
+.partner-art[data-partner="Nagarjuna Herbal Concentrates"] img { width: 127.4900% !important; height: 185.0649% !important; left: -12.3506% !important; top: -30.5195% !important; }
+.partner-art[data-partner="Tampcol"] img { width: 109.5890% !important; height: 243.5897% !important; left: -4.7945% !important; top: -73.5043% !important; }
+.partner-art[data-partner="Dabur"] img { width: 116.7883% !important; height: 116.3265% !important; left: -8.7591% !important; top: -8.1633% !important; }
+.partner-art[data-partner="Dr Siva"] img { width: 209.1503% !important; height: 306.4516% !important; left: -71.2418% !important; top: -109.6774% !important; }
+.partner-art[data-partner="Himalaya"] { --art-ratio: 2.52679; }
+.partner-art[data-partner="Himalaya"] img { width: 113.0742% !important; height: 254.4643% !important; left: -6.7138% !important; top: -76.7857% !important; }
+.partner-art[data-partner="Vasu"] { --art-ratio: 2.25532; }
+.partner-art[data-partner="Vasu"] img { width: 100.6289% !important; height: 202.1277% !important; left: -0.6289% !important; top: -47.5177% !important; }
+.partner-marquee { overflow: hidden; mask-image: none; }
+.partner-track { animation: partner-scroll 42s linear infinite; will-change: transform; }
+.partner-set { gap: 8px; padding-right: 8px; }
+@media (max-width: 600px) {
+  .partner-logo { flex-basis: 118px; width: 118px; height: 84px; }
+  .partner-logo .partner-art { --art-max-height: 66px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .condition-card.reveal:hover,

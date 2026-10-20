@@ -1532,8 +1532,6 @@ body { background: radial-gradient(ellipse at 50% -12%, rgba(58, 96, 56, .12), t
 .partner-section { contain: layout paint; }
 .partner-track { transform: translate3d(0, 0, 0); backface-visibility: hidden; }
 .partner-logo { contain: layout paint; }
-/* Temporarily freeze Herbal Partners while the refresh layout is verified. */
-.partner-track { animation: none !important; transform: none !important; }
 @media (max-width: 1040px) {
   .partner-logo .partner-art { width: 100%; height: 100%; aspect-ratio: auto; }
   .partner-logo .partner-art img { position: static !important; inset: auto !important; width: 100% !important; height: 100% !important; object-fit: contain !important; }

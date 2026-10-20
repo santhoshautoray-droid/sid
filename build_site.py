@@ -289,9 +289,9 @@ def asset(current, path):
 
 def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
-    site_css_version = "20261020-desktop-external-logo-v4"
+    site_css_version = "20261020-partner-scroll-v1"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261020-contact-logo-border-v1"
+    refinement_version = "20261020-partner-art-v2"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
@@ -580,7 +580,7 @@ def pages():
 
 
     review_cards = review_rows_html("reviews")
-    reviews_content = f'''<section class="section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head"><div><p class="eyebrow">Patient feedback</p><h2>Latest Google <span class="accent">reviews</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p><div class="review-source-panel"><div><h3>Reviews from Google</h3><p>Names, ratings and review text come from the clinic’s existing Google review feed. New feedback appears after that feed syncs with Google. Select a reviewer’s name to view their Google profile.</p><a class="text-link" href="{GOOGLE_SEARCH}" target="_blank" rel="noopener noreferrer">View the clinic on Google ↗</a></div></div></div></section>'''
+    reviews_content = f'''<section class="section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head review-section-heading"><div><p class="eyebrow">Patient feedback</p><h2>Latest Google <span class="accent">reviews</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div><img class="review-verified-badge" src="{asset('reviews', 'assets/google-verified-reviews-transparent.png')}" width="1254" height="1254" alt="Google Verified Reviews badge" loading="eager" decoding="async"></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p><div class="review-source-panel"><div><h3>Reviews from Google</h3><p>Names, ratings and review text come from the clinic’s existing Google review feed. New feedback appears after that feed syncs with Google. Select a reviewer’s name to view their Google profile.</p><a class="text-link" href="{GOOGLE_SEARCH}" target="_blank" rel="noopener noreferrer">View the clinic on Google ↗</a></div></div></div></section>'''
     output["reviews/index.html"] = generic_page("reviews", "Google reviews", "Reviews", "Read patient feedback sourced from the clinic’s Google review feed.", reviews_content, None, "reviews")
 
     places = [
