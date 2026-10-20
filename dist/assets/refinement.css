@@ -997,6 +997,13 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   transform: translateY(-6px) scale(1.025);
   box-shadow: 0 20px 42px rgba(0, 0, 0, .34);
 }
+
+/* Show clinic partner logos without the surrounding card border. */
+.partner-logo {
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
 @media (prefers-reduced-motion: reduce) {
   .condition-card.reveal:hover,
   .condition-card.reveal:focus-visible { transform: none; }
