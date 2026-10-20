@@ -291,7 +291,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     site_css_version = "20261020-desktop-external-logo-v4"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261020-treatment-card-hover-v1"
+    refinement_version = "20261020-contact-logo-border-v1"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
@@ -589,7 +589,7 @@ def pages():
     ]
     place_cards = "".join(f'''<article class="contact-card"><p class="eyebrow">Clinic {i}</p><h3>{esc(name)}</h3><p>{esc(address)}</p><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query={esc(address.replace(' ', '+'))}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></article>''' for i, (name, address) in enumerate(places, start=1))
     contact_content = f'''<section class="section"><div class="container"><div class="contact-grid">{place_cards}<article class="contact-card"><p class="eyebrow">Call or message</p><h3>Plan an appointment</h3><p>Contact the clinic with questions about availability or directions.</p><div class="hero-actions"><a class="button" href="tel:{PHONE_TEL}">Call {PHONE}</a><a class="button button-secondary" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></article><article class="contact-card" id="hours"><p class="eyebrow">Opening hours</p><h3>Clinic timings</h3><dl class="hours"><div><dt>Monday – Saturday</dt><dd>10:30 am – 1:30 pm</dd></div><div><dt>Evenings</dt><dd>7:00 pm – 9:30 pm</dd></div><div><dt>Sunday</dt><dd>By appointment</dd></div></dl></article></div><p class="medical-note">If you have a medical emergency, contact your local emergency service or go to the nearest emergency department.</p></div></section>'''
-    output["contact-us/index.html"] = generic_page("contact-us", "Contact & Clinic Locations", "Visit Siddha365", "Find the Siddha365 Health Care Clinic locations in Villivakkam and Mogappair East, Chennai.", contact_content, DOCTOR, "contact-us")
+    output["contact-us/index.html"] = generic_page("contact-us", "Contact & Clinic Locations", "Visit Siddha365", "Find the Siddha365 Health Care Clinic locations in Villivakkam and Mogappair East, Chennai.", contact_content, "assets/optimized/siddha365-transparent-logo.png", "contact-us")
 
     return output
 
