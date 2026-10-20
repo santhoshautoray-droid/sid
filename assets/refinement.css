@@ -684,3 +684,4 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   .clinic-statistics .clinic-statistic__icon svg { width: 27px; height: 27px; }
 }
 
+.partner-section .partner-logo img { display: block !important; }

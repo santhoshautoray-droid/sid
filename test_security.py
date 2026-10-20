@@ -2,6 +2,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import posixpath
+import re
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -19,6 +20,14 @@ class References(HTMLParser):
 
 
 class DistributionSecurity(unittest.TestCase):
+    def test_refinement_does_not_hide_partner_images(self):
+        stylesheet = (build_site.SITE / "assets/refinement.css").read_text(encoding="utf-8")
+        hidden_rules = re.findall(r"([^{}]+)\{([^{}]*)\}", stylesheet)
+
+        for selector, declarations in hidden_rules:
+            if re.search(r"display\s*:\s*none\s*!important", declarations):
+                self.assertNotIn(".partner-logo img", selector)
+
     def test_deploy_contains_only_current_public_files(self):
         with tempfile.TemporaryDirectory(dir=build_site.SITE) as temporary:
             root = Path(temporary)

@@ -262,7 +262,7 @@ def asset(current, path):
 def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     css = f"{asset(route_dir, 'assets/site.css')}?v={ASSET_VERSION}"
-    refinement_version = "20261017-navbar-beam-sparkle-v4"
+    refinement_version = "20261020-partner-images-visible-v1"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
