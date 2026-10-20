@@ -419,9 +419,9 @@ def image_for(route, path, alt, cls="", *, loading=None, priority=False):
 
 def condition_card(route, condition):
     href = rel(route, "treatments/" + condition["slug"])
-    # Treatment cards are a compact, finite set. Eager loading prevents mobile
-    # browsers from leaving most cards blank while scroll/reveal animations run.
-    image = image_for(route, condition["image"], condition.get("image_alt", condition["title"]), "condition-image", loading="eager")
+    # Keep the card grid responsive: images load as cards approach the viewport.
+    # The source assets are committed, so lazy loading no longer risks missing files.
+    image = image_for(route, condition["image"], condition.get("image_alt", condition["title"]), "condition-image", loading="lazy")
     return f'''<a class="condition-card reveal" href="{href}">
       {image}<div class="condition-body"><span class="tag">{esc(condition['category'])}</span><h3>{esc(condition['title'])}</h3><p>{esc(condition['intro'])}</p><span class="text-link">Read the care guide</span></div>
     </a>'''
