@@ -419,7 +419,9 @@ def image_for(route, path, alt, cls="", *, loading=None, priority=False):
 
 def condition_card(route, condition):
     href = rel(route, "treatments/" + condition["slug"])
-    image = image_for(route, condition["image"], condition.get("image_alt", condition["title"]), "condition-image")
+    # Treatment cards are a compact, finite set. Eager loading prevents mobile
+    # browsers from leaving most cards blank while scroll/reveal animations run.
+    image = image_for(route, condition["image"], condition.get("image_alt", condition["title"]), "condition-image", loading="eager")
     return f'''<a class="condition-card reveal" href="{href}">
       {image}<div class="condition-body"><span class="tag">{esc(condition['category'])}</span><h3>{esc(condition['title'])}</h3><p>{esc(condition['intro'])}</p><span class="text-link">Read the care guide</span></div>
     </a>'''
@@ -462,7 +464,7 @@ def care_explorer():
     for index, (key, label, title, copy, slugs) in enumerate(categories):
         tabs.append(f'<button type="button" role="tab" id="care-tab-{key}" aria-controls="care-panel-{key}" aria-selected="{str(index == 0).lower()}" data-care-tab="{key}">{label}<span aria-hidden="true">↗</span></button>')
         featured = by_slug[slugs[0]]
-        image = image_for('', featured['image'], featured['title'], 'care-explorer-image')
+        image = image_for('', featured['image'], featured['title'], 'care-explorer-image', loading='eager')
         links = ''.join(f'<a class="care-guide-link" href="treatments/{slug}/"><span class="guide-index" aria-hidden="true">0{i + 1}</span><span><strong>{esc(by_slug[slug]["title"])}</strong><small>Read the care guide</small></span><span class="guide-arrow" aria-hidden="true">↗</span></a>' for i, slug in enumerate(slugs))
         panels.append(f'<section class="care-panel" id="care-panel-{key}" role="tabpanel" aria-labelledby="care-tab-{key}" tabindex="0" data-care-panel="{key}"><div class="care-panel-overview"><div class="care-panel-photo">{image}<span class="care-photo-caption">Individual care. Clear next steps.</span></div><div class="care-panel-intro"><p class="eyebrow">{label}</p><h3>{title}</h3><p>{copy}</p><a class="text-link" href="contact-us/">Talk to the clinic</a></div></div><div class="care-guide-list">{links}</div></section>')
     return f'<div class="care-explorer" data-care-explorer><div class="care-tabs" role="tablist" aria-label="Explore care by category">{"".join(tabs)}</div><div class="care-panels">{"".join(panels)}</div><p class="care-explorer-note"><span aria-hidden="true">✦</span> Every person is different. An individual consultation helps determine the right next step.</p></div>'
