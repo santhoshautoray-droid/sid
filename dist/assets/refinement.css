@@ -1,5 +1,7 @@
 /* Shared finish: readable copy, consistent rhythm and resilient media. */
 :root { --width: 1240px; --muted: #b1bdb0; }
+
+.partner-section .partner-logo img { display: block !important; }
 [hidden] { display: none !important; }
 html { scrollbar-gutter: stable; scroll-padding-top: 100px; }
 main { overflow-x: clip; }
@@ -165,6 +167,51 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   .home-video-card { grid-template-columns: minmax(116px,.85fr) minmax(0,1fr); min-height: 93px; }
   .home-visit-card { padding: 23px; }
   .home-gallery-caption { padding: 17px; flex-wrap: wrap; gap: 8px; }
+}
+
+/* Restored desktop social media layout. The existing single YouTube panel remains for mobile. */
+.desktop-social-video-section { display: block; }
+.desktop-social-video-section .social-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 36px); }
+.desktop-social-video-section .social-video-panel { min-width: 0; display: flex; flex-direction: column; padding: 14px 0; border: 0; border-radius: 0; background: transparent; overflow: hidden; }
+.desktop-social-video-section .section-head { position: relative; min-height: 196px; align-items: end; margin-bottom: 16px; }
+.desktop-social-video-section .section-head > div:first-child { display: grid; width: 100%; grid-template-rows: auto minmax(70px, auto) 48px; align-content: start; }
+.desktop-social-video-section .section-head .eyebrow { width: fit-content; margin-inline: auto; }
+.desktop-social-video-section .section-head h2 { max-width: 600px; margin: 0 auto 12px; font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.08; text-align: center; }
+.desktop-social-video-section .section-head > div:first-child > p:not(.eyebrow) { width: 100%; max-width: 520px; margin-inline: auto; text-align: center; font-size: .92rem; }
+.desktop-social-video-section .video-section-desktop-social { position: absolute; left: 0; bottom: -26px; }
+.desktop-social-video-section .social-video-panel:first-child .video-section-desktop-social { bottom: -14px; }
+.desktop-social-video-section .carousel-controls { gap: 8px; }
+.desktop-social-video-section .icon-button { width: 36px; min-width: 36px; height: 36px; padding: 0; font-size: .82rem; }
+.desktop-social-video-section .icon-button[data-carousel-pause] { width: 42px; min-width: 42px; }
+.desktop-social-video-section .video-track { grid-auto-columns: calc((100% - 24px) / 4); gap: 8px; margin-top: auto; overflow-x: auto; scrollbar-width: none; }
+.desktop-social-video-section .video-track::-webkit-scrollbar { display: none; }
+.desktop-social-video-section .short-video-card { display: flex; min-width: 0; height: 100%; flex-direction: column; border-radius: 16px; }
+.desktop-social-video-section .short-video-card .video-poster,
+.desktop-social-video-section .instagram-reel-card .instagram-reel-poster { width: 100%; height: auto; min-height: 0; flex: 0 0 auto; aspect-ratio: 9 / 16 !important; }
+.desktop-social-video-section .short-video-card p { display: grid; min-height: 58px; margin: 0; padding: 12px 10px; place-items: center; font-size: .8rem; text-align: center; }
+.desktop-social-video-section .instagram-reel-card p { height: 58px; min-height: 58px; overflow: hidden; }
+.desktop-social-video-section .instagram-reel-poster { position: relative; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 30% 20%, #d9a15a, #b93666 42%, #4f2b82 72%, #141d38); }
+.desktop-social-video-section .instagram-reel-poster > img { width: 100%; height: 100%; object-fit: cover; }
+.desktop-social-video-section .instagram-reel-link { position: absolute; inset: 0; display: grid; place-items: center; }
+@media (max-width: 900px) {
+  .desktop-social-video-section { display: block; }
+  .legacy-video-section { display: none; }
+  .desktop-social-video-section .social-video-grid { grid-template-columns: 1fr; gap: 24px; }
+  .desktop-social-video-section .social-video-panel { padding: 18px 0 22px; }
+  .desktop-social-video-section .section-head { min-height: 0; display: flex; flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 18px; }
+  .desktop-social-video-section .section-head > div:first-child { display: block; }
+  .desktop-social-video-section .section-head h2 { max-width: 100%; font-size: clamp(1.85rem, 8vw, 2.35rem); }
+  .desktop-social-video-section .section-head > div:first-child > p:not(.eyebrow) { max-width: 100%; margin-bottom: 0; }
+  .desktop-social-video-section .video-section-desktop-social { position: static; align-self: flex-start; }
+  .desktop-social-video-section .video-track { grid-auto-columns: calc((100% - 16px) / 3); gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .desktop-social-video-section .short-video-card { scroll-snap-align: start; }
+  .desktop-social-video-section .short-video-card p { display: none; }
+}
+@media (min-width: 901px) {
+  .legacy-video-section { display: none; }
+}
+@media (max-width: 420px) {
+  .desktop-social-video-section .video-track { grid-auto-columns: calc((100% - 8px) / 2); }
 }
 @media (max-width: 800px) {
   .home-gallery-head, .home-gallery-layout { grid-template-columns: 1fr; }
@@ -633,40 +680,218 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .site-header .brand::before { display: none !important; }
 .brand img,
 .site-header .brand img,
-.partner-logo img,
 .review-feed-placeholder > img,
-.footer-brand .brand img,
 .clinic-statistics__header .eyebrow::before {
-  animation: none !important;
-  clip-path: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-  filter: none !important;
+  display: none !important;
+  content: none !important;
+}
+.clinic-statistics__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(221, 238, 213, .14);
+}
+.clinic-statistics__brand-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.clinic-statistics__brand-logo img {
+  display: block;
+  width: 96px;
+  height: auto;
+  object-fit: contain;
+}
+.clinic-statistics__header .eyebrow {
+  margin: 0;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
 }
 
-/* Keep milestone icons legible beside their numbers on wide and narrow layouts. */
+/* Footer / Herbal partners brand logo */
+.footer-brand .brand img {
+  width: 145px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Milestone section: balanced, clean alignment on both desktop and mobile */
 .clinic-statistics .clinic-statistic {
-  display: grid;
-  grid-template-columns: max-content 40px;
-  column-gap: 12px;
-  align-items: start;
-  padding-top: 6px;
-  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  padding: 8px clamp(18px, 2.4vw, 36px) 12px;
+  min-width: 0;
+}
+.clinic-statistics .clinic-statistic:first-child {
+  padding-left: 0;
+}
+.clinic-statistics .clinic-statistic__value-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+}
+.clinic-statistics .clinic-statistic strong {
+  margin: 0;
+  color: #f1f4ee;
+  font-family: 'Manrope', 'DM Sans', sans-serif;
+  font-size: clamp(2.3rem, 4vw, 4.1rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -.07em;
+  line-height: 1;
 }
 .clinic-statistics .clinic-statistic__icon {
-  position: static;
-  grid-column: 2;
-  grid-row: 1;
-  width: 40px;
-  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   margin: 0;
-  justify-self: start;
+  color: var(--green);
+  flex-shrink: 0;
 }
-.clinic-statistics .clinic-statistic__icon svg { width: 34px; height: 34px; }
-.clinic-statistics .clinic-statistic strong { grid-column: 1; grid-row: 1; }
-.clinic-statistics .clinic-statistic__label,
-.clinic-statistics .clinic-statistic__detail,
-.clinic-statistics .clinic-statistic__line { grid-column: 1 / -1; }
+.clinic-statistics .clinic-statistic__icon svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.55;
+}
+.clinic-statistics .clinic-statistic__label {
+  display: flex;
+  align-items: flex-start;
+  max-width: 18ch;
+  min-height: 2.8em;
+  margin-top: 14px;
+}
+.clinic-statistics .clinic-statistic__detail {
+  max-width: 24ch;
+  margin-top: 7px;
+}
+.clinic-statistics .clinic-statistic__line {
+  width: 30px;
+  height: 1px;
+  margin-top: 15px;
+}
+
+@media (max-width: 900px) {
+  .clinic-statistics__header {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    padding-bottom: 18px;
+  }
+  .clinic-statistics__brand-logo {
+    justify-content: center;
+    margin-inline: auto;
+  }
+  .clinic-statistics__brand-logo img {
+    width: clamp(96px, 24vw, 120px);
+    margin-inline: auto;
+  }
+  .clinic-statistics__header .eyebrow {
+    text-align: center;
+  }
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-brand .brand img {
+    margin-inline: auto;
+  }
+  .clinic-statistics__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .clinic-statistics .clinic-statistic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 14px 18px !important;
+  }
+  .clinic-statistics .clinic-statistic:first-child {
+    padding-left: 14px !important;
+  }
+  .clinic-statistics .clinic-statistic:nth-child(2) {
+    border-left: 1px solid rgba(221, 238, 213, .14);
+  }
+  .clinic-statistics .clinic-statistic:nth-child(3) {
+    padding-left: 14px !important;
+    border-left: 0;
+    border-top: 1px solid rgba(221, 238, 213, .14);
+  }
+  .clinic-statistics .clinic-statistic:nth-child(4) {
+    border-left: 1px solid rgba(221, 238, 213, .14);
+    border-top: 1px solid rgba(221, 238, 213, .14);
+  }
+  .clinic-statistics .clinic-statistic__value-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-inline: auto;
+  }
+  .clinic-statistics .clinic-statistic strong {
+    font-size: clamp(2rem, 9.5vw, 2.75rem);
+    line-height: 1;
+  }
+  .clinic-statistics .clinic-statistic__icon {
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    margin-inline: 0;
+  }
+  .clinic-statistics .clinic-statistic__icon svg {
+    width: 23px;
+    height: 23px;
+  }
+  .clinic-statistics .clinic-statistic__label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 20ch;
+    min-height: 2.8em;
+    margin-top: 10px;
+    margin-inline: auto;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+    text-align: center;
+  }
+  .clinic-statistics .clinic-statistic__detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 22ch;
+    min-height: 2.8em;
+    margin-top: 6px;
+    margin-inline: auto;
+    font-size: 0.63rem;
+    line-height: 1.38;
+    text-align: center;
+  }
+  .clinic-statistics .clinic-statistic__line {
+    width: 24px;
+    height: 1px;
+    margin-top: 12px;
+    margin-inline: auto;
+  }
+}
+
 @media (max-width: 760px) {
   .home-founder-section .founder-panel {
     grid-template-columns: 1fr;
@@ -676,12 +901,49 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
     background-size: contain;
     background-position: center top;
   }
-  .clinic-statistics .clinic-statistic {
-    grid-template-columns: max-content 32px;
-    column-gap: 8px;
-  }
-  .clinic-statistics .clinic-statistic__icon { width: 32px; height: 32px; }
-  .clinic-statistics .clinic-statistic__icon svg { width: 27px; height: 27px; }
 }
 
-.partner-section .partner-logo img { display: block !important; }
+@media (max-width: 560px) {
+  .home-stats-band.clinic-statistics {
+    padding-block: 28px 30px;
+  }
+  .clinic-statistics__header {
+    padding-bottom: 16px;
+  }
+  .clinic-statistics__header .eyebrow {
+    font-size: .61rem;
+  }
+  .clinic-statistics__grid {
+    margin-top: 14px;
+  }
+  .clinic-statistics .clinic-statistic {
+    padding: 18px 10px 16px !important;
+  }
+  .clinic-statistics .clinic-statistic:first-child,
+  .clinic-statistics .clinic-statistic:nth-child(3) {
+    padding-left: 10px !important;
+  }
+  .clinic-statistics .clinic-statistic strong {
+    font-size: clamp(1.9rem, 10vw, 2.5rem);
+  }
+  .clinic-statistics .clinic-statistic__icon {
+    width: 25px;
+    height: 25px;
+  }
+  .clinic-statistics .clinic-statistic__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+  .clinic-statistics .clinic-statistic__label {
+    font-size: .60rem;
+    min-height: 2.9em;
+  }
+  .clinic-statistics .clinic-statistic__detail {
+    font-size: .61rem;
+    min-height: 2.9em;
+  }
+  .clinic-statistics .clinic-statistic__line {
+    width: 20px;
+    margin-top: 10px;
+  }
+}

@@ -1455,3 +1455,7 @@ body { background: radial-gradient(ellipse at 50% -12%, rgba(58, 96, 56, .12), t
 .partner-art[data-partner="Himalaya"] img { width: 118.0812%; height: 285.0000%; left: -9.2251%; top: -92.0000%; }
 .partner-art[data-partner="Vasu"] { --art-ratio: 2.387597; }
 .partner-art[data-partner="Vasu"] img { width: 103.8961%; height: 220.9302%; left: -2.2727%; top: -56.5891%; }
+@media (max-width: 1040px) {
+  /* Use the transparent lockup on mobile without changing navbar flow or overlap offsets. */
+  .site-header .brand img { content: url('optimized/siddha365-transparent-logo.png'); object-fit: contain; }
+}

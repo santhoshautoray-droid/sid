@@ -29,7 +29,7 @@ GOOGLE_EMBED = "https://maps.google.com/maps?q=Siddha%20365%20Health%20Care%20Cl
 REVIEWS_API = "https://siddha365.com/wp-json/wp/v2/pages/7?_fields=content"
 ASSET_VERSION = "20261018-founder-leaf-pathfix-v17"
 
-LOGO = "assets/optimized/siddha365-header-lockup.webp"
+LOGO = "assets/optimized/siddha365-brand-logo-new.png"
 FAVICON = "wp-content/uploads/2023/05/cropped-SASEE-siddha-logo-final-2-1-192x192.png"
 DOCTOR = "wp-content/uploads/2026/02/Siddha-doctor-at-her-clinic.png"
 FOUNDER_DOCTOR = "assets/doctor-founder-option5-leaf.png"
@@ -225,6 +225,30 @@ POPULAR_VIDEOS = [
     ("RyuwWtcDdn0", "Fat-loss guidance (Tamil)"),
 ]
 
+YOUTUBE_SHORTS = [
+    ("O0zbouwpups", "BP & Sugar"),
+    ("6NWseb_GgrA", "Cholesterol Foods"),
+    ("b0nNtDSkhNA", "Tubal Block"),
+    ("IZ00Rxrm0BE", "AMH Level"),
+    ("_mxLlcuB014", "படர்தாமரை · Ringworm"),
+    ("1trTpkExXns", "Period Foods"),
+    ("WuHjZiOrLJk", "Dandruff Treatment"),
+    ("1M7Kqq9Qr3I", "Summer Drink"),
+]
+
+INSTAGRAM_REELS = [
+    ("https://www.instagram.com/reel/C_U6qzeIbbr/", "Reduce Body Heat", "assets/media/instagram-previews/C_U6qzeIbbr.jpg"),
+    ("https://www.instagram.com/reel/DAaZJ4yoWnt/", "Hair Regrowth Tips", "assets/media/instagram-previews/DAaZJ4yoWnt.jpg"),
+    ("https://www.instagram.com/reel/DejwJ5-SBlH/", "BP & Sugar Care", "assets/media/instagram-previews/DejwJ5-SBlH.jpg"),
+    ("https://www.instagram.com/reel/DeV1-7pS9nR/", "Natural Skin Care", "assets/media/instagram-previews/DeV1-7pS9nR.jpg"),
+    ("https://www.instagram.com/reel/Dd1XeruSeh-/", "Hand, Foot & Mouth Disease", "assets/media/instagram-previews/Dd1XeruSeh-.jpg"),
+    ("https://www.instagram.com/reel/Db-4vaGy1mF/", "Cholesterol-Lowering Foods", "assets/media/instagram-previews/Db-4vaGy1mF.jpg"),
+    ("https://www.instagram.com/reel/DYt1vgPyyPS/", "Tea & Coffee for Children", "assets/media/instagram-previews/DYt1vgPyyPS.jpg"),
+    ("https://www.instagram.com/reel/DYmv9DoyEtO/", "Neem for Skin Health", "assets/media/instagram-previews/DYmv9DoyEtO.jpg"),
+    ("https://www.instagram.com/reel/DX1_G0Iym2K/", "Multani Mitti & Rose Water", "assets/media/instagram-previews/DX1_G0Iym2K.jpg"),
+    ("https://www.instagram.com/reel/DVZ2do5Esjb/", "Siddha Medicine & Natural Wellness", "assets/media/instagram-previews/DVZ2do5Esjb.jpg"),
+]
+
 YOUTUBE_CHANNEL = "https://www.youtube.com/@siddha365healthcare/videos"
 
 PARTNER_LOGOS = [
@@ -261,13 +285,14 @@ def asset(current, path):
 
 def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
-    css = f"{asset(route_dir, 'assets/site.css')}?v={ASSET_VERSION}"
-    refinement_version = "20261020-partner-images-visible-v1"
+    site_css_version = "20261020-desktop-external-logo-v4"
+    css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
+    refinement_version = "20261020-mobile-social-stack-v1"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
     experience_js = f"{asset(route_dir, 'assets/experience.js')}?v={ASSET_VERSION}"
-    js_version = "20261018-milestone-spacing-v1"
+    js_version = "20261020-new-logo-v3"
     js = f"{asset(route_dir, 'assets/site.js')}?v={js_version}"
     boot = f"{asset(route_dir, 'assets/boot.js')}?v={ASSET_VERSION}"
     review_script = f'<script defer src="{asset(route_dir, "assets/reviews.js")}?v={ASSET_VERSION}"></script>' if 'data-live-reviews-url' in body else ''
@@ -327,6 +352,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
   <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="utility-bar"><div class="container utility-inner"><p><span class="utility-tamil">உணவே மருந்து — மருந்தே உணவு;</span></p><div class="utility-actions"><p><a href="{tel}">Call {PHONE}</a><span class="utility-hours"><span aria-hidden="true"> &nbsp;·&nbsp; </span>Mon–Sat, 10:30 am–1:30 pm &amp; 7–9:30 pm</span></p><button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false">Pause motion</button></div></div></div>
   <header class="site-header">
+    <a class="desktop-external-brand" href="{rel(route_dir, '')}" aria-label="Siddha365 home"><img src="{asset(route_dir, 'assets/optimized/siddha365-transparent-logo.png')}" alt="Siddha 365 Health Care Clinic" width="150" height="92"></a>
     <div class="nav-capsule">
       <a class="brand" href="{rel(route_dir, '')}" aria-label="Siddha365 home"><img src="{logo}" alt="Siddha 365 Health Care Clinic" width="138" height="84"></a>
       <nav class="nav-menu" aria-label="Main navigation"><ul class="nav-links" id="primary-navigation">{nav_html}<li class="nav-drawer-cta"><a class="button button-small nav-cta-drawer" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">Book appointment ↗</a></li></ul></nav>
@@ -454,6 +480,8 @@ def homepage():
     ])
     video_cards = "".join(f'''<article class="video-card"><button class="video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in VIDEOS)
     home_video_cards = "".join(f'''<article class="home-video-card"><button class="home-video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/mqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in POPULAR_VIDEOS)
+    shorts_cards = "".join(f'''<article class="video-card short-video-card"><button class="video-poster" type="button" data-youtube-id="{esc(vid)}" data-youtube-title="{esc(label)}" aria-label="Play {esc(label)}"><img src="https://i.ytimg.com/vi/{esc(vid)}/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-play-icon" aria-hidden="true">▶</span></button><p>{esc(label)}</p></article>''' for vid, label in YOUTUBE_SHORTS)
+    instagram_cards = "".join(f'''<article class="video-card short-video-card instagram-reel-card"><div class="video-poster instagram-reel-poster"><img src="{esc(preview)}" alt="{esc(label)}" loading="lazy" decoding="async"><a class="instagram-reel-link" href="{esc(url)}" target="_blank" rel="noopener noreferrer" aria-label="Open {esc(label)} on Instagram"><span class="video-play-icon" aria-hidden="true">▶</span></a></div><p>{esc(label)}</p></article>''' for url, label, preview in INSTAGRAM_REELS)
     social_rail = f'''<aside class="social-rail" aria-label="Siddha365 social links"><span class="social-rail-label">Follow Siddha365</span><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer" aria-label="Message Siddha365 on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.3-6.2-3.5-8.4Zm-8.4 18.1h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 1 1 8.4 4.6Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.9-1.6.1-.2.1-.4 0-.6s-.7-1.7-.9-2.3c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.3 3.3c.2.2 2.2 3.4 5.3 4.7 2 .9 2.8 1 3.8.8.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.7-.5Z"/></svg><span>WhatsApp</span></a><a href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.7V8.3l6.3 3.7-6.3 3.7Z"/></svg><span>YouTube</span></a><a href="{INSTAGRAM}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5Zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5ZM17.5 6A1.2 1.2 0 1 1 16.3 7.2 1.2 1.2 0 0 1 17.5 6Z"/></svg><span>Instagram</span></a><a href="{FACEBOOK}" target="_blank" rel="noopener noreferrer" aria-label="Visit Siddha365 on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.9-1.8H17V2.3c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v3H7.5V13h2.8v9h3.2Z"/></svg><span>Facebook</span></a></aside>'''
     review_cards = review_rows_html(route)
     body = f'''<main id="main-content">{social_rail}
@@ -463,9 +491,11 @@ def homepage():
 
   <section class="section home-care-section" id="specialized-care"><div class="container"><div class="section-head reveal"><div><p class="eyebrow">Specialized care by Dr. Sindhu V</p><h2>Find care that <span class="accent">speaks to you.</span></h2><p>Choose an area to explore helpful guides and your next step.</p></div><a class="text-link" href="treatments/">All 15 care guides</a></div>{explorer}</div></section>
 
-  <section class="home-stats-band" aria-label="Siddha365 clinic statistics">{image_for(route, "wp-content/uploads/2023/05/IMG_20230517_195232-1-2048x1536.jpg", "", "home-stats-background", loading="lazy")}<div class="container home-stats-grid">{stats}</div></section>
+  <section class="home-stats-band" aria-label="Siddha365 clinic statistics">{image_for(route, "wp-content/uploads/2023/05/IMG_20230517_195232-1-2048x1536.jpg", "", "home-stats-background", loading="lazy")}<div class="container home-stats-inner"><div class="home-stats-mobile-head"><img src="{asset(route, "assets/optimized/siddha365-brand-logo-new.png")}" alt="Siddha365" width="96" height="57"><span>SIDDHA 365 MILESTONES</span></div><div class="home-stats-grid">{stats}</div></div></section>
 
-  <section class="section video-section"><div class="container carousel-shell" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Watch &amp; learn</p><h2>From the Siddha365 <span class="accent">YouTube channel</span></h2><p>Scroll through clinic videos and health conversations. Select a video to play it here.</p></div><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll videos left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll videos right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic video scrolling">Ⅱ</button></div></div><div class="video-track" data-carousel-track data-autoplay="true">{video_cards}</div><p class="muted"><a class="text-link" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer">Visit the official YouTube channel</a></p></div></section>
+  <section class="section social-video-section desktop-social-video-section"><div class="container social-video-grid"><div class="video-section social-video-panel" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Watch &amp; learn</p><h2>From the Siddha365 <span class="accent">YouTube Shorts</span></h2><p>Scroll through the clinic’s Shorts. Select a Short to play it here.</p></div><div class="video-section-desktop-social"><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll Shorts left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll Shorts right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic Shorts scrolling">Ⅱ</button></div></div></div><div class="video-track shorts-video-track" data-carousel-track data-scroll-step="full" data-autoplay="true" data-autoplay-interval="3500">{shorts_cards}</div></div><div class="video-section social-video-panel instagram-video-section" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Follow the clinic</p><h2>See us on <span class="accent">Instagram</span></h2><p>Open the clinic’s latest reels and follow along on Instagram.</p></div><div class="video-section-desktop-social"><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll Instagram reels left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll Instagram reels right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic Instagram scrolling">Ⅱ</button></div></div></div><div class="video-track shorts-video-track" data-carousel-track data-scroll-step="full" data-autoplay="true" data-autoplay-interval="3500">{instagram_cards}</div></div></div></section>
+
+  <section class="section video-section legacy-video-section"><div class="container carousel-shell" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Watch &amp; learn</p><h2>From the Siddha365 <span class="accent">YouTube channel</span></h2><p>Scroll through clinic videos and health conversations. Select a video to play it here.</p></div><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll videos left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll videos right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic video scrolling">Ⅱ</button></div></div><div class="video-track" data-carousel-track data-autoplay="true">{video_cards}</div><p class="muted"><a class="text-link" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer">Visit the official YouTube channel</a></p></div></section>
 
   <section class="section home-reviews-section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head reveal"><div><p class="eyebrow">Patient feedback</p><h2>Words from our <span class="accent">Patients</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p></div></section>
 
@@ -742,6 +772,9 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
