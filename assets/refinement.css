@@ -415,7 +415,7 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 .google-review-logo {display:block; flex:0 0 280px; max-width:100%; background:transparent;}
 .google-review-logo img {display:block; width:100%; height:auto; object-fit:contain;}
 .google-review-logo:focus-visible {outline:2px solid #a9da71; outline-offset:6px;}
-@media(max-width:600px) {.google-review-logo {flex-basis:220px; width:220px; margin-left:auto;}}
+@media(max-width:600px) {.google-review-logo {flex-basis:220px; width:220px; margin-left:auto; margin-right:auto; justify-self:center;}}
 
 /* The mobile navbar is in normal flow, so the review hero needs no header offset. */
 @media(max-width:600px) {
@@ -446,6 +446,8 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 
 /* Compact Siddha365 social rail for the homepage. It uses only the clinic's own destinations. */
 .social-rail {position:fixed; left:18px; top:225px; transform:translateY(-50%); z-index:900; display:flex; flex-direction:column; align-items:center; gap:8px; width:52px; padding:11px 7px; border:1px solid rgba(185,226,135,.22); border-radius:999px; background:rgba(7,20,14,.76); box-shadow:0 14px 38px rgba(0,0,0,.24); backdrop-filter:blur(14px);}
+.social-rail:not(.social-fan-ready) { visibility:hidden; }
+.social-rail.social-fan-ready { visibility:visible; }
 .social-rail-label {display:none;}
 .site-whatsapp-float { position: fixed; left: 18px; top: 225px; z-index: 900; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #fff; background: #25d366; box-shadow: 0 10px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.14); transition: transform .25s ease, filter .25s ease; }
 .site-whatsapp-float:hover, .site-whatsapp-float:focus-visible { filter: brightness(1.12); transform: translateY(-2px); }

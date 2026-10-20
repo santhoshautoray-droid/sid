@@ -553,7 +553,7 @@ def condition_page(condition):
 def generic_page(route, title, eyebrow, intro, content, image=None, section=None):
     art = image_for(route, image, title, "page-hero-art reveal") if image else ""
     if route == "reviews":
-        art = f'''<a class="google-review-logo" href="{GOOGLE_SEARCH}" target="_blank" rel="noopener noreferrer" aria-label="View customer reviews on Google"><img src="{asset(route, 'assets/google-customer-reviews-clear.png')}" alt="Google Customer Reviews" width="340" height="160"></a>'''
+        art = f'''<a class="google-review-logo" href="{GOOGLE_SEARCH}" target="_blank" rel="noopener noreferrer" aria-label="View customer reviews on Google"><img src="{asset(route, 'assets/google-customer-reviews-clear.webp')}?v=20261020" alt="Google Customer Reviews" width="340" height="160"></a>'''
     hero_class = "review-heading-grid" if route == "reviews" else ("page-hero-grid" if image else "")
     hero = f'''<section class="page-hero"><div class="container"><div class="{hero_class}"><div class="reveal">{breadcrumb(route, title)}<p class="eyebrow">{esc(eyebrow)}</p><h1>{esc(title)}</h1><p class="lead">{esc(intro)}</p></div>{art}</div></div></section>'''
     body = f'<main id="main-content">{hero}{content}</main>'
