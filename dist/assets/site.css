@@ -98,6 +98,27 @@ h3 { margin-bottom: 10px; font-size: 1.18rem; font-weight: 650; }
 .site-header.header-scroll-hidden { transform: translateY(calc(-100% - 24px)); }
 .site-header:has(.nav-links.is-open).header-scroll-hidden { transform: translateY(0); }
 
+/* Desktop brand sits outside the floating nav so it never changes nav sizing. */
+.desktop-external-brand {
+  position: absolute;
+  top: 8px;
+  left: max(12px, calc(50% - 517px));
+  z-index: 2;
+  display: inline-flex;
+  width: 122px;
+  height: 62px;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transform: none;
+}
+.desktop-external-brand img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .page-home .site-header {
   position: sticky;
   top: 18px;
@@ -592,6 +613,7 @@ h3 { margin-bottom: 10px; font-size: 1.18rem; font-weight: 650; }
 .no-js .reveal { opacity: 1; transform: none; }
 
 @media (max-width: 1040px) {
+  .desktop-external-brand { display: none; }
   .site-header { top: 10px; margin-bottom: -58px; padding: 0 10px; }
   .nav-capsule, .nav-bar, .nav-shell { width: 100%; min-height: 52px; padding: 4px 8px 4px 14px; gap: 8px; border-radius: 9999px; }
   .brand img { height: 34px; max-width: 82px; }
@@ -1459,3 +1481,63 @@ body { background: radial-gradient(ellipse at 50% -12%, rgba(58, 96, 56, .12), t
   /* Use the transparent lockup on mobile without changing navbar flow or overlap offsets. */
   .site-header .brand img { content: url('optimized/siddha365-transparent-logo.png'); object-fit: contain; }
 }
+@media (max-width: 1040px) {
+  .site-header .brand img { height: 40px; max-width: 96px; }
+}
+.home-stats-inner { position: relative; }
+.home-stats-mobile-head { display: none; }
+@media (max-width: 600px) {
+  .home-stats-band { padding: 18px 0 22px; }
+  .home-stats-mobile-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: #b9ff45; font-size: .63rem; font-weight: 800; letter-spacing: .1em; }
+  .home-stats-mobile-head img { width: 78px; height: auto; object-fit: contain; }
+  .home-stats-grid { gap: 0; }
+  .home-stat { min-height: 150px; padding: 12px 10px; border: 0; border-radius: 0; background: transparent; }
+  .home-stat:nth-child(odd) { border-right: 1px solid rgba(221,238,213,.14); }
+  .home-stat:nth-child(n+3) { border-top: 1px solid rgba(221,238,213,.14); }
+  .home-stat strong { min-width: 0; margin-bottom: 8px; border: 0; font-size: clamp(2rem, 11vw, 3rem); }
+  .home-stat .stat-label { max-width: 13ch; font-size: .62rem; line-height: 1.35; }
+  .home-stat .stat-icon { width: 20px; height: 20px; margin-bottom: 7px; }
+  .home-stat .stat-icon svg { width: 17px; height: 17px; }
+}
+@media (max-width: 600px) {
+  .home-stats-grid .home-stat { display: flex; align-items: center; justify-content: center; text-align: center; }
+  .home-stats-grid .home-stat .stat-icon,
+  .home-stats-grid .home-stat strong,
+  .home-stats-grid .home-stat .stat-label { margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 1040px) {
+  .footer-brand .brand img { content: url('optimized/siddha365-transparent-logo.png'); object-fit: contain; max-width: 128px; height: auto; }
+}
+/* Keep navbar and footer logos continuously visible. */
+.site-header .brand img,
+.footer-brand .brand img { clip-path: none !important; animation: none !important; opacity: 1 !important; transform: none !important; }
+@media (max-width: 1040px) {
+  .site-header .brand { width: 96px; height: 40px; background: url('optimized/siddha365-transparent-logo.png') center / contain no-repeat; }
+  .site-header .brand img { visibility: hidden; width: 100%; height: 100%; }
+  .footer-brand .brand { display: inline-flex; min-width: 128px; min-height: 64px; background: url('optimized/siddha365-transparent-logo.png') center / contain no-repeat; }
+  .footer-brand .brand img { visibility: hidden; }
+}
+/* Keep Herbal Partner images continuously visible. */
+.partner-logo img { clip-path: none !important; animation: none !important; opacity: 1 !important; transform: none !important; }
+@media (max-width: 600px) {
+  .partner-logo .partner-art { width: 100%; height: 100%; aspect-ratio: auto; }
+  .partner-logo .partner-art img { position: static; width: 100% !important; height: 100% !important; object-fit: contain !important; }
+}
+@media (max-width: 600px) {
+  .partner-marquee { overflow: hidden; }
+  .partner-track { gap: 12px; align-items: center; }
+  .partner-logo { position: relative; z-index: 1; flex: 0 0 138px; width: 138px; height: 100px; }
+}
+/* Stabilize partner first paint while reviews load above it. */
+.partner-section { contain: layout paint; }
+.partner-track { transform: translate3d(0, 0, 0); backface-visibility: hidden; }
+.partner-logo { contain: layout paint; }
+/* Temporarily freeze Herbal Partners while the refresh layout is verified. */
+.partner-track { animation: none !important; transform: none !important; }
+@media (max-width: 1040px) {
+  .partner-logo .partner-art { width: 100%; height: 100%; aspect-ratio: auto; }
+  .partner-logo .partner-art img { position: static !important; inset: auto !important; width: 100% !important; height: 100% !important; object-fit: contain !important; }
+}
+/* Keep every Herbal Partner logo inside its white card at all viewport sizes. */
+.partner-logo .partner-art { width: 100%; height: 100%; aspect-ratio: auto; }
+.partner-logo .partner-art img { position: static !important; inset: auto !important; width: 100% !important; height: 100% !important; object-fit: contain !important; }

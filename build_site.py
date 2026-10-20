@@ -287,7 +287,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     site_css_version = "20261020-desktop-external-logo-v4"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261020-mobile-social-stack-v1"
+    refinement_version = "20261020-mobile-image-crops-v2"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"

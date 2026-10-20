@@ -964,12 +964,15 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   .home-care-section .care-panel-photo {
     overflow: hidden;
     background: #172a19;
+    height: 210px !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
   }
   .home-care-section .care-panel-photo img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 24%;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: 50% 24% !important;
   }
 }

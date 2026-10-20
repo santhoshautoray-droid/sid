@@ -202,10 +202,11 @@ if (statsSection) {
     <div class="clinic-statistics__veil" aria-hidden="true"></div>
     <div class="container clinic-statistics__inner">
       <header class="clinic-statistics__header">
+        <div class="clinic-statistics__brand-logo"><img src="assets/optimized/siddha365-brand-logo-new.png" alt="Siddha 365 Health Care Clinic" width="130" height="77" loading="lazy"></div>
         <p class="eyebrow">Siddha 365 milestones</p>
       </header>
       <div class="clinic-statistics__grid" aria-label="Siddha365 clinic statistics">
-        ${milestones.map((milestone, index) => `<article class="clinic-statistic" style="--stat-index:${index}"><span class="clinic-statistic__icon">${milestone.icon}</span><strong data-stat-count="${milestone.value}" aria-label="${displayNumber(milestone.value)} ${milestone.label}">${displayNumber(milestone.value)}</strong><span class="clinic-statistic__label">${milestone.label}</span><span class="clinic-statistic__detail">${milestone.detail}</span><span class="clinic-statistic__line" aria-hidden="true"></span></article>`).join('')}
+        ${milestones.map((milestone, index) => `<article class="clinic-statistic" style="--stat-index:${index}"><div class="clinic-statistic__value-wrap"><strong data-stat-count="${milestone.value}" aria-label="${displayNumber(milestone.value)} ${milestone.label}">${displayNumber(milestone.value)}</strong><span class="clinic-statistic__icon">${milestone.icon}</span></div><span class="clinic-statistic__label">${milestone.label}</span><span class="clinic-statistic__detail">${milestone.detail}</span><span class="clinic-statistic__line" aria-hidden="true"></span></article>`).join('')}
       </div>
     </div>`;
   const counters = [...statsSection.querySelectorAll('[data-stat-count]')];
