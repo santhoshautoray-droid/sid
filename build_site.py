@@ -176,7 +176,11 @@ CONDITIONS = [
 ]
 
  # Approved female-only gallery preview crops. Keep the existing PCOD image unchanged.
-_generated_gallery = [f"assets/optimized/generated-disease-{i}.png" for i in range(1, 16)]
+_trimmed_disease_images = {1, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15}
+_generated_gallery = [
+    f"assets/optimized/generated-disease-{i}{'-trim' if i in _trimmed_disease_images else ''}.png"
+    for i in range(1, 16)
+]
 for _condition, _image in zip(CONDITIONS, _generated_gallery):
     _condition["image"] = _image
 next(_condition for _condition in CONDITIONS if _condition["slug"] == "pcod")["image"] = "assets/optimized/generated-pcod-last.png"
@@ -287,7 +291,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     site_css_version = "20261020-desktop-external-logo-v4"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261020-mobile-image-crops-v2"
+    refinement_version = "20261020-treatment-card-hover-v1"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"

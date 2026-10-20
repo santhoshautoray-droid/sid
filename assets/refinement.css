@@ -976,3 +976,28 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
     object-position: 50% 24% !important;
   }
 }
+
+/* Full-bleed artwork at desktop widths too: source-image padding must not
+   create white bands inside treatment, gallery, and home image frames. */
+.condition-image,
+.gallery-item img {
+  object-fit: cover !important;
+}
+.gallery-item img { inset: 0; width: 100%; height: 100%; }
+
+/* Let treatment cards rise above neighboring cards on hover or keyboard focus. */
+.condition-card.reveal {
+  transition: opacity .55s ease, transform .25s ease, box-shadow .25s ease,
+    border-color .25s ease, background .25s ease;
+}
+.condition-card.reveal:hover,
+.condition-card.reveal:focus-visible {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-6px) scale(1.025);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, .34);
+}
+@media (prefers-reduced-motion: reduce) {
+  .condition-card.reveal:hover,
+  .condition-card.reveal:focus-visible { transform: none; }
+}
