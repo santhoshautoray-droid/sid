@@ -22,7 +22,8 @@ SITE = Path(__file__).resolve().parent
 PHONE = "+91 78455 39622"
 PHONE_TEL = "+917845539622"
 WHATSAPP = "https://wa.me/917845539622?text=Hello%20Siddha%20365%2C%20I%20would%20like%20to%20book%20an%20appointment."
-INSTAGRAM = "https://www.instagram.com/dr.siddha365/"
+INSTAGRAM = "https://www.instagram.com/siddha365healthcare?utm_source=ig_web_button_share_sheet&psln=ZDNlZDc0MzIxNw=="
+MOGAPPAIR_MAP = "https://maps.app.goo.gl/ozqh7GmwgCCS8nwR7"
 FACEBOOK = "https://www.facebook.com/profile.php?id=100088560039047"
 GOOGLE_SEARCH = "https://www.google.com/maps/search/?api=1&query=Siddha+365+Health+Care+Clinic+Villivakkam+Chennai"
 GOOGLE_EMBED = "https://maps.google.com/maps?q=Siddha%20365%20Health%20Care%20Clinic%20Villivakkam%20Chennai&output=embed"
@@ -396,7 +397,7 @@ def footer(route):
   <div class="container footer-grid">
     <div class="footer-brand"><a class="brand" href="{home}" aria-label="Siddha365 home"><img src="{logo}" alt="Siddha 365 Health Care Clinic"></a><p>Thoughtful Siddha care with personal attention in Chennai. Every concern starts with a conversation and an individual assessment.</p></div>
     <div><h2 class="footer-title">Explore</h2><div class="footer-links"><a href="{treatment}">Treatments</a><a href="{about}">About the clinic</a><a href="{gallery}">Gallery</a><a href="{reviews}">Google reviews</a></div></div>
-    <div><h2 class="footer-title">Visit</h2><div class="footer-links"><a href="{contact}">Clinic locations</a><a href="{contact}#hours">Opening hours</a><a href="{tel}">{PHONE}</a><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp appointments</a></div></div>
+    <div><h2 class="footer-title">Visit</h2><div class="footer-links"><a href="{contact}">Clinic locations</a><a href="{MOGAPPAIR_MAP}" target="_blank" rel="noopener noreferrer">Mogappair East location ↗</a><a href="{contact}#hours">Opening hours</a><a href="{tel}">{PHONE}</a><a href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp appointments</a></div></div>
     <div><h2 class="footer-title">Clinic hours</h2><div class="footer-links"><span>Monday – Saturday</span><span>10:30 am – 1:30 pm</span><span>7:00 pm – 9:30 pm</span><span>Sunday · by appointment</span></div></div>
   </div>
   <div class="footer-bottom container"><p>© 2026 Siddha365 Health Care Clinic</p><p>Health information on this site is general and does not replace an individual medical consultation.</p></div>
@@ -595,7 +596,7 @@ def pages():
         ("Villivakkam", "No. 179, North Red Hills Road, near Subway, Villivakkam, Chennai, Tamil Nadu 600049."),
         ("Mogappair East", "No. 4/31, Pari Salai, Block 4, J.J. Nagar, Mogappair East, Chennai, Tamil Nadu 600037."),
     ]
-    place_cards = "".join(f'''<article class="contact-card"><p class="eyebrow">Clinic {i}</p><h3>{esc(name)}</h3><p>{esc(address)}</p><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query={esc(address.replace(' ', '+'))}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></article>''' for i, (name, address) in enumerate(places, start=1))
+    place_cards = "".join(f'''<article class="contact-card"><p class="eyebrow">Clinic {i}</p><h3>{esc(name)}</h3><p>{esc(address)}</p><a class="text-link" href="{MOGAPPAIR_MAP if name == 'Mogappair East' else 'https://www.google.com/maps/search/?api=1&amp;query=' + esc(address.replace(' ', '+'))}" target="_blank" rel="noopener noreferrer">Directions on Google Maps</a></article>''' for i, (name, address) in enumerate(places, start=1))
     contact_content = f'''<section class="section"><div class="container"><div class="contact-grid">{place_cards}<article class="contact-card"><p class="eyebrow">Call or message</p><h3>Plan an appointment</h3><p>Contact the clinic with questions about availability or directions.</p><div class="hero-actions"><a class="button" href="tel:{PHONE_TEL}">Call {PHONE}</a><a class="button button-secondary" href="{WHATSAPP}" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></article><article class="contact-card" id="hours"><p class="eyebrow">Opening hours</p><h3>Clinic timings</h3><dl class="hours"><div><dt>Monday – Saturday</dt><dd>10:30 am – 1:30 pm</dd></div><div><dt>Evenings</dt><dd>7:00 pm – 9:30 pm</dd></div><div><dt>Sunday</dt><dd>By appointment</dd></div></dl></article></div><p class="medical-note">If you have a medical emergency, contact your local emergency service or go to the nearest emergency department.</p></div></section>'''
     output["contact-us/index.html"] = generic_page("contact-us", "Contact & Clinic Locations", "Visit Siddha365", "Find the Siddha365 Health Care Clinic locations in Villivakkam and Mogappair East, Chennai.", contact_content, "assets/optimized/siddha365-transparent-logo.png", "contact-us")
 
@@ -790,6 +791,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
 
 
 
