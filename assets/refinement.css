@@ -13,6 +13,20 @@ img { height: auto; }
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 .section { padding-block: clamp(44px, 5vw, 72px); }
+.home-founder-section .founder-clinic-name {
+  color: transparent;
+  background: linear-gradient(110deg, #72c84b 0%, #b9ff45 45%, #eaffb0 52%, #8ed85d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.page-reviews main > .section { padding-top: 18px; }
+.page-reviews .site-header { margin-bottom: 0; }
+@media (min-width: 1041px) {
+  .page-reviews main > .section { padding-top: 28px; }
+}
+@media (max-width: 1040px) {
+  .page-reviews main > .section { padding-top: 24px; }
+}
 .section-head { margin-bottom: 26px; }
 .eyebrow { font-size: .72rem; letter-spacing: .12em; }
 .button { min-height: 48px; line-height: 1.35; font-size: .92rem; }
@@ -26,8 +40,27 @@ p { text-wrap: pretty; }
 .care-aside { top: 98px; }
 .check-list li::before { content: '✓'; }
 .gallery-item { margin: 0; min-height: 270px; }
+.home-slide { aspect-ratio: 16 / 9; }
+.home-slide picture { display: block; width: 100%; height: 100%; }
 .gallery-item img, .split-image img, .home-slide-image, .home-intro-image img, .hero-image img,
 .video-poster img, .home-video-poster img, .home-stats-background, .partner-logo img { height: 100%; }
+.home-slide-image { object-fit: contain; }
+.home-stats-mobile-head span {
+  font-size: clamp(.82rem, 1.3vw, 1.08rem);
+  font-weight: 850;
+  letter-spacing: .13em;
+  background: linear-gradient(105deg, #d8f6a8 0%, #9ee46d 48%, #4f9f4b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.home-stats-mobile-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.home-stats-mobile-head img { width: 86px; height: auto; object-fit: contain; }
 .home-intro-image { position: relative; height: 360px; min-height: 0; }
 .home-intro-image img { position: absolute; inset: 0; min-height: 0; }
 .condition-card { height: 100%; }
@@ -576,9 +609,6 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   padding-top: clamp(18px, 2.5vw, 32px);
 }
 
-/* Let the homepage image field begin directly below the separated header. */
-.page-home .home-gallery-section { padding-top: 0; }
-
 
 /* Keep the shortened Tamil slogan on one desktop line. */
 @media (min-width: 721px) {
@@ -589,11 +619,17 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
 /* Homepage polish: give the desktop header a calm visual hierarchy and protect
    the hero copy from busy slider artwork without changing the mobile layout. */
 @media (min-width: 801px) {
+  .page-home .desktop-external-brand {
+    top: 4px;
+    bottom: 4px;
+    height: auto;
+  }
   .page-home .site-header {
     padding-top: 10px;
-    padding-bottom: 12px;
+    padding-bottom: 0;
     background: #0b130e;
   }
+  .page-home .home-gallery-section { padding-top: 0; }
   .page-home .nav-capsule,
   .page-home .nav-bar,
   .page-home .nav-shell {
@@ -1058,3 +1094,31 @@ body:has(dialog[open]) .review-marquee-track { animation-play-state: paused; }
   .condition-card.reveal:hover,
   .condition-card.reveal:focus-visible { transform: none; }
 }
+
+/* Milestones heading size: explicit responsive override */
+.home-stats-mobile-head span { font-size: clamp(1.12rem, 2vw, 1.55rem); line-height: 1.15; }
+@media (max-width: 600px) { .home-stats-mobile-head span { font-size: clamp(1rem, 5.2vw, 1.38rem); line-height: 1.15; } }
+
+/* Final override: milestones text only */
+.home-stats-mobile-head > span {
+  font-size: 1.65rem !important;
+  line-height: 1.15 !important;
+  font-weight: 900 !important;
+}
+@media (max-width: 600px) {
+  .home-stats-mobile-head > span { font-size: 1.3rem !important; }
+}
+
+.home-review-heading { display:grid; grid-template-columns:180px minmax(0,1fr); align-items:center; gap:24px; }
+.home-review-badge { display:block; width:180px; height:180px; object-fit:contain; }
+.home-review-heading > div { min-width:0; transform:translateX(10px); }
+@media (max-width:600px) { .home-review-heading { grid-template-columns:112px minmax(0,1fr); gap:14px; } .home-review-badge { width:112px; height:112px; } .home-review-heading > div { transform:none; } }
+
+
+.treatment-heading { display:grid; grid-template-columns:130px minmax(0,1fr); align-items:center; gap:24px; }
+.treatment-heading-logo { width:130px; height:auto; object-fit:contain; }
+@media (max-width:600px) { .treatment-heading { grid-template-columns:82px minmax(0,1fr); gap:14px; } .treatment-heading-logo { width:82px; } }
+
+/* Match the Gallery hero logo treatment without changing the grid. */
+.page-treatments .page-hero-art { height:auto; max-height:300px; width:100%; object-fit:contain; object-position:center; border:0; border-radius:0; background:transparent; }
+@media(max-width:740px) { .page-treatments .page-hero-art { width:min(300px,100%); max-height:210px; justify-self:center; } }

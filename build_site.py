@@ -288,12 +288,13 @@ def asset(current, path):
 
 
 def page_shell(route, title, description, body, *, homepage=False, section=""):
+    body = body.replace("at Siddha 365 Health Care Clinic.", "at <span class=\"founder-clinic-name\">Siddha 365 Health Care Clinic</span>.")
     route_dir = route
     site_css_version = "20261020-partner-scroll-v1"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261020-partner-art-v2"
+    refinement_version = "20261021-treatment-logo-v3"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
-    experience_version = "20261017-treatment-glass-cta-v1" if homepage else ASSET_VERSION
+    experience_version = "20261021-home-slider-fit-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
     experience_js = f"{asset(route_dir, 'assets/experience.js')}?v={ASSET_VERSION}"
     js_version = "20261020-new-logo-v3"
@@ -472,10 +473,15 @@ def care_explorer():
 
 def homepage():
     route = ""
-    slides = "".join(
-        f'<figure class="home-slide">{image_for(route, path, label, "home-slide-image", loading="eager" if index == 0 else "lazy", priority=index == 0)}</figure>'
-        for index, (path, label) in enumerate(HOME_SLIDES)
-    )
+    slide_markup = []
+    for index, (path, label) in enumerate(HOME_SLIDES):
+        image = image_for(route, path, label, "home-slide-image", loading="eager" if index == 0 else "lazy", priority=index == 0)
+        if index >= 2:
+            desktop_path = f"assets/home-slider-desktop/slider-{index - 1}.png"
+            desktop_image = image_for(route, desktop_path, label, "home-slide-image", loading="eager" if index == 0 else "lazy", priority=index == 0)
+            image = f'<picture><source media="(min-width: 721px)" srcset="{desktop_path}">{image}</picture>'
+        slide_markup.append(f'<figure class="home-slide">{image}</figure>')
+    slides = "".join(slide_markup)
     explorer = care_explorer()
 
     stats = "".join([
@@ -503,7 +509,7 @@ def homepage():
 
   <section class="section video-section legacy-video-section"><div class="container carousel-shell" data-carousel><div class="section-head reveal"><div><p class="eyebrow">Watch &amp; learn</p><h2>From the Siddha365 <span class="accent">YouTube channel</span></h2><p>Scroll through clinic videos and health conversations. Select a video to play it here.</p></div><div class="carousel-controls"><button class="icon-button" type="button" data-carousel-prev aria-label="Scroll videos left">←</button><button class="icon-button" type="button" data-carousel-next aria-label="Scroll videos right">→</button><button class="icon-button" type="button" data-carousel-pause aria-pressed="false" aria-label="Pause automatic video scrolling">Ⅱ</button></div></div><div class="video-track" data-carousel-track data-autoplay="true">{video_cards}</div><p class="muted"><a class="text-link" href="{YOUTUBE_CHANNEL}" target="_blank" rel="noopener noreferrer">Visit the official YouTube channel</a></p></div></section>
 
-  <section class="section home-reviews-section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head reveal"><div><p class="eyebrow">Patient feedback</p><h2>Words from our <span class="accent">Patients</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p></div></section>
+  <section class="section home-reviews-section"><div class="container review-carousel" data-live-reviews-url="{REVIEWS_API}"><div class="section-head reveal home-review-heading"><img class="home-review-badge" src="{asset("", "assets/google-verified-reviews-transparent.png")}" width="1254" height="1254" alt="Google Verified Reviews badge" loading="lazy" decoding="async"><div><p class="eyebrow">Patient feedback</p><h2>Words from our <span class="accent">Patients</span></h2><p>Patient experiences from the clinic’s Google review feed. Select a card to read the full review.</p></div></div>{review_cards}<p class="muted review-feed-note" data-review-status aria-live="polite">Connecting to the clinic’s Google review feed…</p></div></section>
 
   <section class="section home-tradition-section"><div class="container home-tradition-grid"><div class="tradition-copy reveal"><p class="eyebrow">Siddha tradition</p><h2>Concept of Vatham, Pitham &amp; <span class="accent">Kabam</span></h2><p>Siddha tradition describes Vatham, Pitham, and Kabam as three principles used to discuss balance in health. This historical framework is part of Siddha practice; it does not replace medical testing or an individual clinical diagnosis.</p><div class="dosha-list"><article><strong>Vatham</strong><span>Traditionally associated with movement</span></article><article><strong>Pitham</strong><span>Traditionally associated with transformation</span></article><article><strong>Kabam</strong><span>Traditionally associated with structure</span></article></div></div><figure class="tradition-art reveal">{image_for(route, "wp-content/uploads/2026/02/vatham-pitham-kabam-premium.png", "Contemporary Siddha-inspired illustration representing Vatham, Pitham, and Kabam in balance")}</figure></div></section>
 
@@ -527,7 +533,8 @@ def treatment_index():
     route = "treatments"
     cards = "".join(condition_card(route, item) for item in CONDITIONS)
     body = f'''<main id="main-content">
-<section class="section"><div class="container"><div class="section-head"><div><p class="eyebrow">Browse by topic</p><h2>Choose a <span class="accent">care guide</span></h2><p>These pages are educational and do not diagnose or promise a cure. Please consult a qualified clinician for personal advice.</p></div></div><div class="card-grid">{cards}</div></div></section>
+<section class="page-hero"><div class="container"><div class="page-hero-grid"><div class="reveal">{breadcrumb(route, "Treatments")}<p class="eyebrow">Browse by topic</p><h1>Choose a <span class="accent">care guide</span></h1><p class="lead">These pages are educational and do not diagnose or promise a cure. Please consult a qualified clinician for personal advice.</p></div><img class="page-hero-art treatment-heading-logo reveal" src="{asset(route, 'assets/optimized/siddha365-transparent-logo.png')}" alt="Siddha365 Health Care Clinic" loading="eager" decoding="async"></div></div></section>
+<section class="section"><div class="container"><div class="card-grid">{cards}</div></div></section>
 </main>'''
     return page_shell(route, "Treatments", "Browse separate Siddha365 care guide pages for health conditions and traditional therapies.", body, section="treatments")
 
@@ -551,9 +558,10 @@ def condition_page(condition):
 
 
 def generic_page(route, title, eyebrow, intro, content, image=None, section=None):
-    art = image_for(route, image, title, "page-hero-art reveal") if image else ""
     if route == "reviews":
-        art = f'''<a class="google-review-logo" href="{GOOGLE_SEARCH}" target="_blank" rel="noopener noreferrer" aria-label="View customer reviews on Google"><img src="{asset(route, 'assets/google-customer-reviews-clear.webp')}?v=20261020" alt="Google Customer Reviews" width="340" height="160"></a>'''
+        body = f'<main id="main-content">{content}</main>'
+        return page_shell(route, title, intro, body, section=section or route.split("/",1)[0])
+    art = image_for(route, image, title, "page-hero-art reveal") if image else ""
     hero_class = "review-heading-grid" if route == "reviews" else ("page-hero-grid" if image else "")
     hero = f'''<section class="page-hero"><div class="container"><div class="{hero_class}"><div class="reveal">{breadcrumb(route, title)}<p class="eyebrow">{esc(eyebrow)}</p><h1>{esc(title)}</h1><p class="lead">{esc(intro)}</p></div>{art}</div></div></section>'''
     body = f'<main id="main-content">{hero}{content}</main>'
@@ -678,6 +686,10 @@ def build_distribution(generated):
     founder_leaf = SITE / "assets/doctor-founder-option5-leaf.png"
     if founder_leaf.is_file():
         assets["assets/doctor-founder-option5-leaf.png"] = founder_leaf
+    desktop_slider_dir = SITE / "assets/home-slider-desktop"
+    if desktop_slider_dir.is_dir():
+        for desktop_slider in desktop_slider_dir.glob("*.png"):
+            assets[f"assets/home-slider-desktop/{desktop_slider.name}"] = desktop_slider
     # Validate the entire input manifest before changing the deployment output.
     for page_path, content in generated.items():
         page = Path(page_path)
@@ -778,6 +790,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
