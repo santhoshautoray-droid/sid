@@ -293,7 +293,7 @@ def page_shell(route, title, description, body, *, homepage=False, section=""):
     route_dir = route
     site_css_version = "20261020-partner-scroll-v1"
     css = f"{asset(route_dir, 'assets/site.css')}?v={site_css_version}"
-    refinement_version = "20261021-treatment-logo-v3"
+    refinement_version = "20261022-treatment-image-edges-v3"
     refinements = f"{asset(route_dir, 'assets/refinement.css')}?v={refinement_version}"
     experience_version = "20261021-home-slider-fit-v1" if homepage else ASSET_VERSION
     experience_css = f"{asset(route_dir, 'assets/experience.css')}?v={experience_version}"
