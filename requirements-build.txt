@@ -1,2 +1,2 @@
 # Build-time image processing only; no Python runs on the public static site.
-Pillow==12.3.0
+Pillow==13.0.0
